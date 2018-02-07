@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pachiraframework.watchdog.dao.MonitorDao">
+	<resultMap id="MonitorMap" type="Monitor">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="pollingInterval" column="polling_interval" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	<sql id="table">monitor</sql>
+	<sql id="columns">name,type,polling_interval,created_at,updated_at</sql>
+	<sql id="limit"> limit #{pageRequest.offset},#{pageRequest.size} 	</sql>
+	<sql id="orderBy">
+		<if test="pageRequest.orders.size() > 0">
+			<foreach collection="pageRequest.orders" item="order" open="order by"
+				separator="," close=" "> ${order.property} ${order.direction}             
+			</foreach>
+		</if>
+	</sql> 	<!-- 分页查询模版普通信息 -->
+	<sql id="findByPageCriteria">
+		<if test="params.name!=null and params.name !=''">
+			and m.name like CONCAT('%',#{pageRequest.name},'%' ) 
+		</if>
+		<if test="params.type!=null and params.type !=''">
+			and m.type =#{pageRequest.type}	
+		</if>
+	</sql>
+	<select id="findByPage" parameterType="PageRequest" resultMap="MonitorMap">
+		select m.id,m.name,m.type,m.polling_interval,m.created_at,m.updated_at
+		from
+		<include refid="table" /> m 
+		where 1=1
+		<include refid="findByPageCriteria" />
+		<include refid="orderBy" />
+		<include refid="limit" />
+	</select>
+	<select id="findByPageCount" parameterType="PageRequest"
+		resultType="int">
+		select count(*) from
+		<include refid="table" />  m 
+		where 1=1
+		<include refid="findByPageCriteria" />
+	</select>
+	<select id="findListBySqlCommand" parameterType="SqlQueryCommand" resultMap="MonitorMap">
+		select m.id,m.name,m.type_id,m.polling_interval,m.created_at,m.updated_at
+		from
+		<include refid="table" /> m  
+		where 1=1
+        <foreach item="k" index="key" collection="where" >
+           ${k.andOr} ${k.column} ${k.operator} #{k.value}  
+        </foreach>
+        <foreach item="k" index="key" collection="orders" separator="," open=" order by ">
+        	${k.column} ${k.order}
+        </foreach>
+        <if test="limit!=null">
+        	limit #{limit.offset},#{limit.size}
+        </if>
+	</select>
+	<insert id="insert" parameterType="Monitor" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO <include refid="table"/>(<include refid="columns"/>)
+		VALUES(
+			#{name},
+			#{type},
+			#{pollingInterval},
+			now(),
+			now()	)
+	</insert>
+</mapper>

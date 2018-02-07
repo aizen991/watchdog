@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pachiraframework.watchdog.dao.PingMonitorDao">
+	<resultMap id="PingMonitorMap" type="PingMonitor">
+		<id property="id" column="id" />
+		<result property="host" column="host" />
+		<result property="timeout" column="timeout" />
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="pollingInterval" column="polling_interval" />
+	</resultMap>
+	<sql id="table">ping_monitor</sql>
+	<sql id="columns">host,timeout</sql>
+	<sql id="limit"> limit #{pageRequest.offset},#{pageRequest.size} 	</sql>
+	<sql id="orderBy">
+		<if test="pageRequest.orders.size() > 0">
+			<foreach collection="pageRequest.orders" item="order" open="order by"
+				separator="," close=" "> ${order.property} ${order.direction}             
+			</foreach>
+		</if>
+	</sql> 	<!-- 分页查询模版普通信息 -->
+	<sql id="findByPageCriteria">
+		<if test="params.interval!=null">
+			and `polling_interval` =#{params.interval}	
+		</if>
+	</sql>
+	<select id="findByPage" parameterType="PageRequest" resultMap="PingMonitorMap">
+		select h.id,h.host,h.timeout,m.name,m.type,m.polling_interval
+		from
+		<include refid="table" /> h left join monitor m on h.id=m.id
+		where 1=1
+		<include refid="findByPageCriteria" />
+		<include refid="orderBy" />
+		<include refid="limit" />
+	</select>
+	<select id="findByPageCount" parameterType="PageRequest" resultType="int">
+		select count(*) from
+		<include refid="table" /> h left join monitor m on h.id=m.id
+		where 1=1
+		<include refid="findByPageCriteria" />
+	</select>
+	<select id="findListBySqlCommand" parameterType="SqlQueryCommand" resultMap="PingMonitorMap">
+		select h.id,h.host,h.timeout,m.name,m.type,m.polling_interval
+		from
+		<include refid="table" /> h left join monitor m on h.id=m.id
+		where 1=1
+        <foreach item="k" index="key" collection="where" >
+           ${k.andOr} ${k.column} ${k.operator} #{k.value}  
+        </foreach>
+        <foreach item="k" index="key" collection="orders" separator="," open=" order by ">
+        	${k.column} ${k.order}
+        </foreach>
+        <if test="limit!=null">
+        	limit #{limit.offset},#{limit.size}
+        </if>
+	</select>
+	<insert id="insert" parameterType="PingMonitor" useGeneratedKeys="false" keyProperty="id">
+		INSERT INTO <include refid="table"/>(id,<include refid="columns"/>)
+		VALUES(
+			#{id},
+			#{host},
+			#{timeout}	)
+	</insert>
+</mapper>

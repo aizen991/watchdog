@@ -1,0 +1,24 @@
+package com.pachiraframework.watchdog.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString(callSuper=true)
+public class NewUrlMonitor extends AbstractNewMonitor {
+	private String url;
+	private Integer timeout;//秒
+	private String method;
+	private String requestParams;
+	private String userid;
+	private String password;
+	private String httpCondition;
+	private Integer httpValue;
+	private String userAgent;
+	private String httpHeader;
+	private String shouldContain;
+	private String notContain;
+	private String caseSensitive;
+}
