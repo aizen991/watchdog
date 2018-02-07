@@ -7,6 +7,8 @@
 * >Ping监控 :Ping的服务器通不通，是否超时
 * >Telnet监控:监控制定服务器端口是否正常
 * >Url监控：支持get/post方式访问制定http(s)地址，自定义header,返回内容匹配（包含、不包含、等于），返回状态匹配
+* 使用elasticsearch6存储监控结果数据
+* 使用mysql存储任务监控器基础数据和配置数据
 
 == 本地运行项目
 * 新建数据库watchdog，并将watchdog.sql脚本导入到数据库中

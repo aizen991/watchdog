@@ -17,7 +17,7 @@
 	<springProfile name="prod">
 		<appender-ref ref="FILE" />
 	</springProfile>
-	<root level="debug">
+	<root level="info">
 		    <appender-ref ref="CONSOLE" />
 		</root>
 </configuration>

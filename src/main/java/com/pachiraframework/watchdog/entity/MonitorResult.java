@@ -19,7 +19,6 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class MonitorResult extends BaseEntity<Long> {
 	private static final long serialVersionUID = -4790740212823314408L;
-	private MonitorRecord record;
 	private Monitor monitor;
 	private String health;
 	private String message;
