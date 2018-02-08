@@ -25,6 +25,7 @@ public abstract class AbstractActionComponent implements InitializingBean{
 	private Template template;
 	@Autowired
     private FreeMarkerConfigurer freeMarkerConfigurer;
+	
 	protected Gson gson = new GsonBuilder().create();
 
 	public void execute(MetricReportEvent context){
