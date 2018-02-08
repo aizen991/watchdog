@@ -18,6 +18,10 @@ public class MetricReport implements Indexable {
 	 */
 	private String id;
 	/**
+	 * 时间戳
+	 */
+	private Long timestamp;
+	/**
 	 * 监控器ID
 	 */
 	private Long moitorId;
@@ -42,4 +46,8 @@ public class MetricReport implements Indexable {
 	 * 错误消息
 	 */
 	private String message;
+	
+	public static enum StatusEnum{
+		UP,DOWN,CLEAR,WARNING,CRITICAL
+	}
 }

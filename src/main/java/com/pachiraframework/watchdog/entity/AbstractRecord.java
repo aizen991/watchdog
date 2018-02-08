@@ -14,6 +14,7 @@ import lombok.ToString;
 @ToString
 public abstract class AbstractRecord implements Indexable{
 	private String id;
+	private Long timestamp;
 	private Long moitorId;
 	private String message;
 }

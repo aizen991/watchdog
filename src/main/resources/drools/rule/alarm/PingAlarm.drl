@@ -1,0 +1,16 @@
+package drools.rule.alarm;
+
+import com.pachiraframework.watchdog.event.event.MetricReportEvent;
+import com.pachiraframework.watchdog.action.ConsoleActionComponent;
+
+global com.pachiraframework.watchdog.util.SpringContext spring;
+
+rule "工作时间发现异常邮件通知"
+	no-loop true
+	salience 99 //数字越大，优先级越高
+	calendars "only-weekdays"
+	when 
+		$event:MetricReportEvent(monitor.type=='PING')
+	then
+		spring.get(ConsoleActionComponent.class).execute($event);
+end 

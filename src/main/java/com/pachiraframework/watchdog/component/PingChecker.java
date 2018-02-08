@@ -1,23 +1,21 @@
 package com.pachiraframework.watchdog.component;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import org.assertj.core.util.Lists;
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.pachiraframework.domain.Page;
-import com.pachiraframework.domain.PageRequest;
 import com.pachiraframework.domain.WrappedPageRequest;
+import com.pachiraframework.watchdog.dao.MetricReportDao;
 import com.pachiraframework.watchdog.dao.PingMonitorDao;
 import com.pachiraframework.watchdog.dao.PingRecordDao;
+import com.pachiraframework.watchdog.entity.AbstractRecord;
 import com.pachiraframework.watchdog.entity.MetricReport;
 import com.pachiraframework.watchdog.entity.Monitor;
 import com.pachiraframework.watchdog.entity.PingMonitor;
 import com.pachiraframework.watchdog.entity.PingRecord;
+import com.pachiraframework.watchdog.inspect.PingInspector;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,60 +25,38 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Component
-public class PingChecker extends AbstractChecker implements DisposableBean {
+public class PingChecker extends AbstractChecker{
 	@Autowired
 	private PingRecordDao pingRecordDao;
 	@Autowired
 	private PingMonitorDao pingMonitorDao;
-	private ExecutorService executorService = Executors.newFixedThreadPool(100);
+	@Autowired
+	private MetricReportDao metricReportDao;
+	@Autowired
+	private PingInspector pingInspector;
+	
 	@Override
-	public void check(Integer interval) {
-		int startPage = 0;
-		WrappedPageRequest pageRequest = new WrappedPageRequest(new PageRequest(startPage, BATCH_FETCH_SIZE));
-		pageRequest.addParam("interval", interval);
-		Page<PingMonitor> page = pingMonitorDao.findByPage(pageRequest);
-		while (!page.getContent().isEmpty()) {
-			log.info("开始处理Monitor批次,startPage={},batchSize={},size={}", startPage, BATCH_FETCH_SIZE,
-					page.getContent().size());
-			for (Monitor monitor : page.getContent()) {
-				executorService.submit(new HandleTask(monitor));
-			}
-			pageRequest = new WrappedPageRequest(new PageRequest(++startPage, BATCH_FETCH_SIZE));
-			page = pingMonitorDao.findByPage(pageRequest);
-		}
+	protected List<MetricReport> doInspectRecord(AbstractRecord record) {
+		List<MetricReport> results = pingInspector.inspect((PingRecord)record);
+		metricReportDao.batchInsert(results);
+		log.info("monitor.ping.metric.report.insert.success:record id ={},size={}",record.getId(),results.size());
+		return results;
 	}
+
+	@Override
+	protected Page<Monitor> loadBatch(WrappedPageRequest pageRequest) {
+		Page<Monitor> page = pingMonitorDao.findByPage(pageRequest);
+		return page;
+	}
+
+	@Override
 	protected PingRecord doMonitor(Monitor monitor) {
 		String host = ((PingMonitor)monitor).getHost();
 		PingRecord record = Ping.ping(host);
 		record.setMoitorId(monitor.getId());
+		record.setTimestamp(System.currentTimeMillis());
+		pingRecordDao.insert(record);
+		log.info("monitor.ping.record.insert.success:插入es成功:{}",record);
 		return record;
-	}
-	private class HandleTask extends Thread{
-		private Monitor monitor;
-		public HandleTask(Monitor monitor){
-			this.monitor = monitor;
-		}
-		@Override
-		public void run() {
-			log.info("检查monitor-{}",monitor);
-			PingRecord record = doMonitor(monitor);
-			pingRecordDao.insert(record);
-			log.info("monitor.ping.record.insert.success:插入es成功:{}",record);
-			//规则引擎匹配UP/DOWN/CLEAR/WARNING/CRITIAL级别
-			
-			List<MetricReport> results = calculatorMonitorResults(record);
-			handleMonitorRecordResult(record, results);
-		}
-		private void handleMonitorRecordResult(PingRecord record, List<MetricReport> results) {
-			// TODO 触发告警规则
-		}
-		private List<MetricReport> calculatorMonitorResults(PingRecord record) {
-			List<MetricReport> list = Lists.newArrayList();
-			return list;
-		}
-	}
-	@Override
-	public void destroy() throws Exception {
-		executorService.shutdown();
 	}
 }
