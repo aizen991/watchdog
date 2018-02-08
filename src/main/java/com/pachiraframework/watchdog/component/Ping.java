@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 import com.google.common.base.Splitter;
-import com.pachiraframework.watchdog.entity.elasticsearch.PingRecord;
+import com.pachiraframework.watchdog.entity.PingRecord;
 
 import lombok.Cleanup;
 import lombok.Data;

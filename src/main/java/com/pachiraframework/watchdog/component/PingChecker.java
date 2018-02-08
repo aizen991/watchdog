@@ -13,11 +13,11 @@ import com.pachiraframework.domain.Page;
 import com.pachiraframework.domain.PageRequest;
 import com.pachiraframework.domain.WrappedPageRequest;
 import com.pachiraframework.watchdog.dao.PingMonitorDao;
-import com.pachiraframework.watchdog.dao.elasticsearch.PingRecordDao;
+import com.pachiraframework.watchdog.dao.PingRecordDao;
+import com.pachiraframework.watchdog.entity.MetricReport;
 import com.pachiraframework.watchdog.entity.Monitor;
 import com.pachiraframework.watchdog.entity.PingMonitor;
-import com.pachiraframework.watchdog.entity.elasticsearch.MetricsReport;
-import com.pachiraframework.watchdog.entity.elasticsearch.PingRecord;
+import com.pachiraframework.watchdog.entity.PingRecord;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -68,14 +68,14 @@ public class PingChecker extends AbstractChecker implements DisposableBean {
 			log.info("monitor.ping.record.insert.success:插入es成功:{}",record);
 			//规则引擎匹配UP/DOWN/CLEAR/WARNING/CRITIAL级别
 			
-			List<MetricsReport> results = calculatorMonitorResults(record);
+			List<MetricReport> results = calculatorMonitorResults(record);
 			handleMonitorRecordResult(record, results);
 		}
-		private void handleMonitorRecordResult(PingRecord record, List<MetricsReport> results) {
+		private void handleMonitorRecordResult(PingRecord record, List<MetricReport> results) {
 			// TODO 触发告警规则
 		}
-		private List<MetricsReport> calculatorMonitorResults(PingRecord record) {
-			List<MetricsReport> list = Lists.newArrayList();
+		private List<MetricReport> calculatorMonitorResults(PingRecord record) {
+			List<MetricReport> list = Lists.newArrayList();
 			return list;
 		}
 	}

@@ -1,4 +1,4 @@
-package com.pachiraframework.watchdog.entity.elasticsearch;
+package com.pachiraframework.watchdog.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MetricsReport implements Indexable {
+public class MetricReport implements Indexable {
 	/**
 	 * 报告ID
 	 */
@@ -32,10 +32,14 @@ public class MetricsReport implements Indexable {
 	/**
 	 * 要监控的指标
 	 */
-	private String metrics;
+	private String metric;
 	
 	/**
 	 * 监控结果UP/DOWN/CLEAR/WARNING/CRITICAL
 	 */
 	private String status;
+	/**
+	 * 错误消息
+	 */
+	private String message;
 }

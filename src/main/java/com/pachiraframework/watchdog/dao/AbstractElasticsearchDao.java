@@ -1,4 +1,4 @@
-package com.pachiraframework.watchdog.dao.elasticsearch;
+package com.pachiraframework.watchdog.dao;
 
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.transport.TransportClient;
@@ -6,7 +6,7 @@ import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.Gson;
-import com.pachiraframework.watchdog.entity.elasticsearch.Indexable;
+import com.pachiraframework.watchdog.entity.Indexable;
 
 /**
  * @author wangxuzheng

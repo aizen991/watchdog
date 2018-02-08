@@ -1,4 +1,4 @@
-package com.pachiraframework.watchdog.dao.elasticsearch;
+package com.pachiraframework.watchdog.dao;
 
 import org.springframework.stereotype.Repository;
 

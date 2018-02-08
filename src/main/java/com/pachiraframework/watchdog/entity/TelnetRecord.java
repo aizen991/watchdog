@@ -1,4 +1,4 @@
-package com.pachiraframework.watchdog.entity.elasticsearch;
+package com.pachiraframework.watchdog.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +11,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class TelnetRecord extends MonitorRecord {
+public class TelnetRecord extends AbstractRecord {
 	private Long responseTime;
 }

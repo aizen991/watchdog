@@ -1,4 +1,4 @@
-package com.pachiraframework.watchdog.entity.elasticsearch;
+package com.pachiraframework.watchdog.entity;
 
 public interface Indexable {
 	public String getId();

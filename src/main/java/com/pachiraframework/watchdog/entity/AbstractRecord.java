@@ -1,4 +1,4 @@
-package com.pachiraframework.watchdog.entity.elasticsearch;
+package com.pachiraframework.watchdog.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MonitorRecord implements Indexable{
+public abstract class AbstractRecord implements Indexable{
 	private String id;
 	private Long moitorId;
 	private String message;
