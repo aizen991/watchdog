@@ -13,10 +13,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Component
 @Slf4j
-public class SmsActionComponent extends AbstractActionComponent {
+public class SmsAction extends LimitedAction {
 	private static final String TEMPLATE_NAME = "alarm/ping/sms.ftl";
 	@Override
-	protected void doExecute(MetricReportEvent context) {
+	protected void doExecute(MetricReportEvent context) throws Exception{
 		log.info("对接短信平台发送短信：{}",context);		
 	}
 

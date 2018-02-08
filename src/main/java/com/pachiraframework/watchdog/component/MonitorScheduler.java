@@ -34,7 +34,7 @@ public class MonitorScheduler {
 	/**
 	 * 一分钟执行一次
 	 */
-	@Scheduled(fixedDelay = (1 * 60 * 1000))
+	@Scheduled(fixedRate = (1 * 60 * 1000))
 	public void everyMinutes() {
 		Integer interval = ScheduleInterval.MIN_1.milliseconds();
 		doCheck(interval);
@@ -43,7 +43,7 @@ public class MonitorScheduler {
 	/**
 	 * 5分钟执行一次
 	 */
-	@Scheduled(fixedDelay = (5 * 60 * 1000))
+	@Scheduled(fixedRate = (5 * 60 * 1000))
 	public void every5Minutes() {
 		log.info("monitor.scheduler.min_5:开始执行");
 		Integer interval = ScheduleInterval.MIN_5.milliseconds();
@@ -53,7 +53,7 @@ public class MonitorScheduler {
 	/**
 	 * 10分钟执行一次
 	 */
-	@Scheduled(fixedDelay = (10 * 60 * 1000))
+	@Scheduled(fixedRate = (10 * 60 * 1000))
 	public void every10Minutes() {
 		log.info("monitor.scheduler.min_10:开始执行");
 		Integer interval = ScheduleInterval.MIN_10.milliseconds();
@@ -63,7 +63,7 @@ public class MonitorScheduler {
 	/**
 	 * 20分钟执行一次
 	 */
-	@Scheduled(fixedDelay = (20 * 60 * 1000))
+	@Scheduled(fixedRate = (20 * 60 * 1000))
 	public void every20Minutes() {
 		log.info("monitor.scheduler.min_20:开始执行");
 		Integer interval = ScheduleInterval.MIN_20.milliseconds();
@@ -73,7 +73,7 @@ public class MonitorScheduler {
 	/**
 	 * 30分钟执行一次
 	 */
-	@Scheduled(fixedDelay = (30 * 60 * 1000))
+	@Scheduled(fixedRate = (30 * 60 * 1000))
 	public void every30Minutes() {
 		log.info("monitor.scheduler.min_30:开始执行");
 		Integer interval = ScheduleInterval.MIN_30.milliseconds();
@@ -83,7 +83,7 @@ public class MonitorScheduler {
 	/**
 	 * 40分钟执行一次
 	 */
-	@Scheduled(fixedDelay = (40 * 60 * 1000))
+	@Scheduled(fixedRate = (40 * 60 * 1000))
 	public void every40Minutes() {
 		log.info("monitor.scheduler.min_40:开始执行");
 		Integer interval = ScheduleInterval.MIN_40.milliseconds();
@@ -93,7 +93,7 @@ public class MonitorScheduler {
 	/**
 	 * 50分钟执行一次
 	 */
-	@Scheduled(fixedDelay = (50 * 60 * 1000))
+	@Scheduled(fixedRate = (50 * 60 * 1000))
 	public void every50Minutes() {
 		log.info("monitor.scheduler.min_50:开始执行");
 		Integer interval = ScheduleInterval.MIN_50.milliseconds();
@@ -103,7 +103,7 @@ public class MonitorScheduler {
 	/**
 	 * 60分钟执行一次
 	 */
-	@Scheduled(fixedDelay = (60 * 60 * 1000))
+	@Scheduled(fixedRate = (60 * 60 * 1000))
 	public void every60Minutes() {
 		log.info("monitor.scheduler.min_40:开始执行");
 		Integer interval = ScheduleInterval.MIN_40.milliseconds();
@@ -113,7 +113,7 @@ public class MonitorScheduler {
 	/**
 	 * 90分钟执行一次
 	 */
-	@Scheduled(fixedDelay = (90 * 60 * 1000))
+	@Scheduled(fixedRate = (90 * 60 * 1000))
 	public void every90Minutes() {
 		log.info("monitor.scheduler.min_90:开始执行");
 		Integer interval = ScheduleInterval.MIN_90.milliseconds();

@@ -15,15 +15,16 @@ import lombok.Getter;
  * @author wangxuzheng
  *
  */
-public abstract class LimitedActionComponent extends AbstractActionComponent {
+public abstract class LimitedAction extends AbstractAction {
 	@Getter
 	private Cache<String, Long> cache = buildCache();
 	protected Cache<String, Long> buildCache(){
-		Cache<String, Long> cache = CacheBuilder.newBuilder().maximumSize(10000).expireAfterWrite(duration(), TimeUnit.MINUTES).build();
+		Cache<String, Long> cache = CacheBuilder.newBuilder().initialCapacity(100).concurrencyLevel(5).maximumSize(10000).expireAfterWrite(duration(), TimeUnit.MINUTES).build();
 		return cache;
 	}
 	@Override
 	public void execute(MetricReportEvent context){
+		boolean needExecute = false;
 		for(MetricReport report : context.getReports()) {
 			StatusEnum status = StatusEnum.valueOf(report.getStatus());
 			if(StatusEnum.UP.equals(status)|| StatusEnum.CLEAR.equals(status)) {
@@ -32,10 +33,13 @@ public abstract class LimitedActionComponent extends AbstractActionComponent {
 			String key = report.getMetric()+":"+report.getMoitorId();
 			Long last = cache.getIfPresent(key);
 			if(last == null) {
-				
+				cache.put(key, System.currentTimeMillis());
+				needExecute = true;
 			}
 		}
-		super.execute(context);
+		if(needExecute) {
+			super.execute(context);
+		}
 	}
 	/**
 	 * 发送间隔分钟数，默认10分钟

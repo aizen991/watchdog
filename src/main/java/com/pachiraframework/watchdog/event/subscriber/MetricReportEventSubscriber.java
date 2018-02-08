@@ -4,8 +4,8 @@ import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Component;
 
 import com.google.common.eventbus.Subscribe;
-import com.pachiraframework.watchdog.component.Drools;
 import com.pachiraframework.watchdog.event.event.MetricReportEvent;
+import com.pachiraframework.watchdog.util.Drools;
 
 /**
  * @author wangxuzheng

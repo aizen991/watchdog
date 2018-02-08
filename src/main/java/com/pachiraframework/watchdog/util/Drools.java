@@ -1,4 +1,4 @@
-package com.pachiraframework.watchdog.component;
+package com.pachiraframework.watchdog.util;
 
 import javax.annotation.PostConstruct;
 

@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public abstract class AbstractActionComponent implements InitializingBean{
+public abstract class AbstractAction implements InitializingBean{
 	@Getter
 	private Template template;
 	@Autowired
@@ -36,7 +36,7 @@ public abstract class AbstractActionComponent implements InitializingBean{
 		}
 	}
 	
-	protected abstract void doExecute(MetricReportEvent context);
+	protected abstract void doExecute(MetricReportEvent context)throws Exception;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
