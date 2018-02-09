@@ -8,10 +8,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class MetricReportDao extends AbstractElasticsearchDao {
-	private static final String INDEX_NAME = "metric_report";
+	private static final String INDEX_TYPE = "metric_report";
+
 	@Override
-	protected String indexName() {
-		return INDEX_NAME;
+	protected String indexType() {
+		return INDEX_TYPE;
 	}
 	
 }

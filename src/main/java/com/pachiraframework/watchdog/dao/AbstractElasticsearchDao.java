@@ -20,7 +20,7 @@ import lombok.Getter;
  *
  */
 public abstract class AbstractElasticsearchDao {
-	protected static final String INDEX_TYPE = "watchdog";
+	protected static final String INDEX_NAME = "watchdog";
 	@Getter
 	@Autowired
 	private TransportClient transportClient;
@@ -30,16 +30,16 @@ public abstract class AbstractElasticsearchDao {
 	 * 
 	 * @return
 	 */
-	protected abstract String indexName();
+	protected String indexName() {
+		return INDEX_NAME;
+	}
 
 	/**
 	 * 索引类型
 	 * 
 	 * @return
 	 */
-	protected String indexType() {
-		return INDEX_TYPE;
-	}
+	protected abstract String indexType();
 
 	public void insert(Indexable pingRecord) {
 		Gson gson = createGson();
