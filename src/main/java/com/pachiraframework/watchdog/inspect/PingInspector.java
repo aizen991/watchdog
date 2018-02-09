@@ -1,5 +1,6 @@
 package com.pachiraframework.watchdog.inspect;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -67,7 +68,7 @@ public class PingInspector extends AbstractInspector<PingRecord> {
 	private MetricReport createPingReport(PingRecord record) {
 		MetricReport report = createReport(record);
 		report.setType(MonitorType.PING.getName());
-		report.setTimestamp(System.currentTimeMillis());
+		report.setTimestamp(new Date());
 		return report;
 	}
 

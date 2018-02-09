@@ -1,5 +1,7 @@
 package com.pachiraframework.watchdog.entity;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,7 +22,7 @@ public class MetricReport implements Indexable {
 	/**
 	 * 时间戳
 	 */
-	private Long timestamp;
+	private Date timestamp;
 	/**
 	 * 监控器ID
 	 */

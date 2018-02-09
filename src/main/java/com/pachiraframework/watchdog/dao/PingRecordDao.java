@@ -11,8 +11,7 @@ public class PingRecordDao extends AbstractRecordDao{
 	private static final String INDEX_TYPE = "ping_record";
 
 	@Override
-	protected String indexType() {
+	protected String index() {
 		return INDEX_TYPE;
 	}
-
 }

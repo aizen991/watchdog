@@ -11,7 +11,7 @@ public class TelnetRecordDao extends AbstractRecordDao {
 	private static final String INDEX_TYPE = "telnet_record";
 
 	@Override
-	protected String indexType() {
+	protected String index() {
 		return INDEX_TYPE;
 	}
 

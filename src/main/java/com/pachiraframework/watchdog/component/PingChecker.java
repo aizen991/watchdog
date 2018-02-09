@@ -1,5 +1,6 @@
 package com.pachiraframework.watchdog.component;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class PingChecker extends AbstractChecker{
 		String host = ((PingMonitor)monitor).getHost();
 		PingRecord record = Ping.ping(host);
 		record.setMoitorId(monitor.getId());
-		record.setTimestamp(System.currentTimeMillis());
+		record.setTimestamp(new Date());
 		pingRecordDao.insert(record);
 		log.info("monitor.ping.record.insert.success:插入es成功:{}",record);
 		return record;

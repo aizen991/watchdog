@@ -11,6 +11,7 @@ import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.pachiraframework.watchdog.entity.Indexable;
 
 import lombok.Getter;
@@ -20,18 +21,13 @@ import lombok.Getter;
  *
  */
 public abstract class AbstractElasticsearchDao {
-	protected static final String INDEX_NAME = "watchdog";
+	protected static final String INDEX_PREFIX = "watchdog_";
 	@Getter
 	@Autowired
 	private TransportClient transportClient;
-
-	/**
-	 * 索引名称
-	 * 
-	 * @return
-	 */
-	protected String indexName() {
-		return INDEX_NAME;
+	
+	private String indexNameType() {
+		return INDEX_PREFIX + index();
 	}
 
 	/**
@@ -39,12 +35,12 @@ public abstract class AbstractElasticsearchDao {
 	 * 
 	 * @return
 	 */
-	protected abstract String indexType();
+	protected abstract String index();
 
 	public void insert(Indexable pingRecord) {
 		Gson gson = createGson();
 		String json = gson.toJson(pingRecord);
-		IndexResponse response = transportClient.prepareIndex(indexName(), indexType())
+		IndexResponse response = transportClient.prepareIndex(indexNameType(), indexNameType())
 				.setSource(json, XContentType.JSON).get();
 		String id = response.getId();
 		pingRecord.setId(id);
@@ -60,7 +56,7 @@ public abstract class AbstractElasticsearchDao {
 		BulkRequestBuilder bulkRequest = transportClient.prepareBulk();
 		for (Indexable report : reports) {
 			String json = gson.toJson(report);
-			bulkRequest.add(transportClient.prepareIndex(indexName(), indexType()).setSource(json, XContentType.JSON));
+			bulkRequest.add(transportClient.prepareIndex(indexNameType(), indexNameType()).setSource(json, XContentType.JSON));
 		}
 		BulkResponse response = bulkRequest.execute().actionGet();
 		BulkItemResponse[] items = response.getItems();
@@ -72,6 +68,7 @@ public abstract class AbstractElasticsearchDao {
 	}
 
 	protected Gson createGson() {
-		return new Gson();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").create();   
+		return gson;
 	}
 }

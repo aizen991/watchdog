@@ -1,5 +1,7 @@
 package com.pachiraframework.watchdog.entity;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,7 +16,7 @@ import lombok.ToString;
 @ToString
 public abstract class AbstractRecord implements Indexable{
 	private String id;
-	private Long timestamp;
+	private Date timestamp;
 	private Long moitorId;
 	private String message;
 }

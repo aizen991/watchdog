@@ -11,7 +11,7 @@ public class MetricReportDao extends AbstractElasticsearchDao {
 	private static final String INDEX_TYPE = "metric_report";
 
 	@Override
-	protected String indexType() {
+	protected String index() {
 		return INDEX_TYPE;
 	}
 	
