@@ -3,13 +3,12 @@ package com.pachiraframework.watchdog.util;
 import javax.annotation.PostConstruct;
 
 import org.joda.time.DateTime;
-import org.kie.api.KieBase;
+import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.time.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -20,15 +19,18 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class Drools {
 	private static Drools drools;
+//	@Autowired
+//	@Setter
+//	private KieBase kieBase;
 	@Autowired
-	@Setter
-	private KieBase kieBase;
-	public static KieSession newStatefulSession(){
+	private KieContainer kieContainer;
+	public static KieSession newAlarmSession(){
 		log.debug("新建kiession对象");
 //		KieSessionConfiguration configuration = kieContainer.getKieSessionConfiguration();
 //		configuration.setOption(TimedRuleExectionOption.YES);//自动执行timer-rule
 //		KieSession session = kieContainer().newKieSession(configuration);
-		KieSession session = drools.kieBase.newKieSession();
+//		KieSession session = drools.kieBase.newKieSession();
+		KieSession session = drools.kieContainer.newKieSession("AlarmKS");
 //		session.addEventListener(new TrackingAgendaEventListener());
 //		session.addEventListener(new DebugAgendaEventListener());
 //		session.addEventListener(new DebugRuleRuntimeEventListener());
@@ -59,6 +61,7 @@ public class Drools {
 	@PostConstruct
 	public void init(){
 		drools = this;
-		drools.kieBase = this.kieBase;
+//		drools.kieBase = this.kieBase;
+		drools.kieContainer = this.kieContainer;
 	}
 }

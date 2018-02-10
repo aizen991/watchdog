@@ -35,6 +35,7 @@ public abstract class LimitedAction extends AbstractAction {
 			if(last == null) {
 				cache.put(key, System.currentTimeMillis());
 				needExecute = true;
+				break;
 			}
 		}
 		if(needExecute) {

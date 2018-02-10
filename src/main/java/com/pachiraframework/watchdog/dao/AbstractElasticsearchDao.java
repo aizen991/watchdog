@@ -63,7 +63,7 @@ public abstract class AbstractElasticsearchDao {
 		for (int i = 0; i < items.length; i++) {
 			BulkItemResponse item = items[i];
 			Indexable report = reports.get(i);
-			report.setId(item.getId());
+			report.setId(item.getResponse().getId());
 		}
 	}
 

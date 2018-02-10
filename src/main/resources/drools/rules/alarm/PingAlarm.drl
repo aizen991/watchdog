@@ -1,4 +1,4 @@
-package drools.rule.alarm;
+package drools.rules.alarm;
 
 import com.pachiraframework.watchdog.event.event.MetricReportEvent;
 import com.pachiraframework.watchdog.action.ConsoleAction;
@@ -6,11 +6,11 @@ import com.pachiraframework.watchdog.action.SmsAction;
 import com.pachiraframework.watchdog.action.EmailAction;
 
 global com.pachiraframework.watchdog.util.SpringContext spring;
-dfd
+
 rule "控制台打印监控明细-测试阶段使用"
 	no-loop true
 	salience 1 //数字越大，优先级越高
-	date-expires   "20.3.2018 16:00"
+	date-expires   "2018-03-28 00:00:00"
 	when 
 		$event:MetricReportEvent(monitor.type=='PING')
 	then

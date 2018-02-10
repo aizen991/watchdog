@@ -15,7 +15,7 @@ import com.pachiraframework.watchdog.util.Drools;
 public class MetricReportEventSubscriber extends AbstractSubscriber {
 	@Subscribe
 	public void fireAlarmsRules(MetricReportEvent event) {
-		KieSession kieSession = Drools.newStatefulSession();
+		KieSession kieSession = Drools.newAlarmSession();
 		kieSession.insert(event);
 		kieSession.fireAllRules();
 		kieSession.dispose();
