@@ -20,23 +20,25 @@
 					<div class="col-md-5">方法：${monitor.method}</div>
 				</div>
 				<div class="row">
-					<div class="col-md-5">请求参数：${monitor.requestParams!""}</div>
-					<div class="col-md-5">用户：${monitor.userid!""}</div>
-				</div>
-				<div class="row">
-					<div class="col-md-5">密码：${monitor.password!""}</div>
-					<div class="col-md-5">Agent：${monitor.userAgent!""}</div>
-				</div>
-				<div class="row">
-					<div class="col-md-5">间隔：${monitor.pollingInterval}</div>
-					<div class="col-md-5">请求头：${monitor.httpHeader!""}</div>
-				</div>
-				<div class="row">
 					<div class="col-md-5">应该包含：${monitor.shouldContain!""}</div>
 					<div class="col-md-5">不该包含：${monitor.shouldNotContain!""}</div>
 				</div>
 				<div class="row">
+					<div class="col-md-5">用户：${monitor.userid!""}</div>
+					<div class="col-md-5">密码：${monitor.password!""}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10">Agent：${monitor.userAgent!""}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10">请求参数：${monitor.requestParams!""}</div>
+				</div>
+				<div class="row">
 					<div class="col-md-5">大小写敏感：${monitor.caseSensitive!""}</div>
+					<div class="col-md-5">间隔：${monitor.pollingInterval}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10">请求头：${monitor.httpHeader!""}</div>
 				</div>
 			</div>
 		</div>
@@ -48,17 +50,19 @@
 					<div class="col-md-5">检查时间：${record.timestamp?string("yyyy-MM-dd HH:mm:ss")}</div>
 				</div>
 				<div class="row">
-					<div class="col-md-5">响应时间：${record.responseTime}(毫秒)</div>
-					<div class="col-md-5">消息：${record.message!""}</div>
+					<div class="col-md-10">响应时间：${record.responseTime}(毫秒)</div>
 				</div>
 				<div class="row">
-					<div class="col-md-10">响应内容：</div>
+					<div class="col-md-10">消息：</div>
 				</div>
 				<div class="row">
 					<div class="col-md-10">${record.message!""}</div>
 				</div>
 				<div class="row">
-					
+					<div class="col-md-10">响应内容：</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10">${record.body!""}</div>
 				</div>
 			</div>
 		</div>

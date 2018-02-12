@@ -22,6 +22,6 @@ Agent:${monitor.userAgent!""}
 ID:${record.id}
 响应时间:${record.responseTime}
 状态码:${record.code}
-返回内容:${record.body}
+返回内容:${record.body!""}
 消息:${record.message!""}
 <#include "/alarm/common/console_reports.ftl">

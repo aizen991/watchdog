@@ -70,7 +70,7 @@ public class TelnetChecker extends AbstractChecker {
 		record.setMoitorId(monitor.getId());
 		record.setTimestamp(new Date());
 		telnetRecordDao.insert(record);
-		log.info("monitor.telnet.record.insert.success:插入es成功:{}", record);
+		log.info("monitor.telnet.record.insert.success:插入es成功:{}", record.getId());
 		return record;
 	}
 

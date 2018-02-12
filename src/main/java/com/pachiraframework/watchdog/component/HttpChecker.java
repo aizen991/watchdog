@@ -90,7 +90,7 @@ public class HttpChecker extends AbstractChecker {
 			httpRequest.disconnect();
 		}
 		httpRecordDao.insert(record);
-		log.info("monitor.http.record.insert.success:插入es成功:{}",record);
+		log.info("monitor.http.record.insert.success:插入es成功:{}",record.getId());
 		return record;
 	}
 	private HttpRequest getRequest(String url){

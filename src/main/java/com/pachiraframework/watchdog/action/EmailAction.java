@@ -35,7 +35,7 @@ public class EmailAction extends LimitedAction {
 				helper.setTo("12708826@qq.com");
 				helper.setFrom("kepler2017@163.com");
 				helper.setText(text, true);
-				helper.setSubject(String.format("【监控中心】-监控器【(%s)%s】发生告警",context.getMonitor().getType(),context.getMonitor().getName()));
+				helper.setSubject(String.format("【监控中心】-【(%s)%s】发生告警",context.getMonitor().getType(),context.getMonitor().getName()));
 			}
 		});
 	}

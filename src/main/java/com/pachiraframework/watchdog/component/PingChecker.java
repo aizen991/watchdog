@@ -57,7 +57,7 @@ public class PingChecker extends AbstractChecker{
 		record.setMoitorId(monitor.getId());
 		record.setTimestamp(new Date());
 		pingRecordDao.insert(record);
-		log.info("monitor.ping.record.insert.success:插入es成功:{}",record);
+		log.info("monitor.ping.record.insert.success:插入es成功:{}",record.getId());
 		return record;
 	}
 }
