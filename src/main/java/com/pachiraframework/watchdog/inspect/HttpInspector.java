@@ -11,7 +11,6 @@ import com.google.common.collect.Lists;
 import com.pachiraframework.watchdog.constant.Metrics;
 import com.pachiraframework.watchdog.entity.HttpMonitor;
 import com.pachiraframework.watchdog.entity.HttpMonitor.CaseSensitiveEnum;
-import com.pachiraframework.watchdog.entity.HttpMonitor.HttpConditionEnum;
 import com.pachiraframework.watchdog.entity.HttpRecord;
 import com.pachiraframework.watchdog.entity.MetricReport;
 import com.pachiraframework.watchdog.entity.MetricReport.StatusEnum;
@@ -31,52 +30,72 @@ import com.pachiraframework.watchdog.entity.MonitorType;
  */
 @Component
 public class HttpInspector extends AbstractInspector<HttpRecord> {
+	private static final Long WARNING_VALUE = 3000L;
 	@Override
 	public List<MetricReport> inspect(Monitor monitor,HttpRecord record) {
-		HttpMonitor httpUrlMonitor = (HttpMonitor)monitor;
+		HttpMonitor httpMonitor = (HttpMonitor)monitor;
 		List<MetricReport> list = Lists.newArrayList();
-		// Metrics.TELNET.AVAILABLE 存活
+		// Metrics.HTTP.AVAILABLE 存活
 		MetricReport available = availableReport(record);
 		list.add(available);
 		if (available.getStatus().equals(StatusEnum.DOWN.toString())) {
 			return list;
 		}
 		
-		//TODO 响应时间指标
+		// Metrics.HTTP.AVAILABLE 响应时间指标
+		MetricReport responseTimeReport = responseTimeReport(record);
+		list.add(responseTimeReport);
 		
-		//TODO 响应内容匹配指标
+		// Metrics.HTTP.AVAILABLE 响应内容匹配指标
+		list.add(responseBodyReport(httpMonitor, record));
 		
-		HttpConditionEnum condition = HttpConditionEnum.of(httpUrlMonitor.getHttpCondition());
-		boolean match = !HttpConditionMatcher.MATCHER_MAP.get(condition).match(record.getCode(), httpUrlMonitor.getHttpValue());
-		if(match){
-			CaseSensitiveEnum caseSensitiveEnum = CaseSensitiveEnum.of(httpUrlMonitor.getCaseSensitive());
-			boolean should = true;
-			boolean shouldNot = true;
-			if(!Strings.isNullOrEmpty(httpUrlMonitor.getShouldContain())){
-				if(CaseSensitiveEnum.NO.equals(caseSensitiveEnum)){
-					should = new CaseInsensitiveStrategyDecorator(new ShouldContainStrategy(record.getBody())).match(httpUrlMonitor.getShouldContain());
-				}else{
-					should = new ShouldContainStrategy(record.getBody()).match(httpUrlMonitor.getShouldContain());
-				}
-			}
-			if(!Strings.isNullOrEmpty(httpUrlMonitor.getShouldNotContain())){
-				if(CaseSensitiveEnum.NO.equals(caseSensitiveEnum)){
-					shouldNot = new CaseInsensitiveStrategyDecorator(new ShouldNotContainStrategy(record.getBody())).match(httpUrlMonitor.getShouldNotContain());
-				}else{
-					shouldNot = new ShouldNotContainStrategy(record.getBody()).match(httpUrlMonitor.getShouldNotContain());
-				}
-			}
-			if(should && shouldNot){
-				record.setMessage("OK");
-			}else{
-				record.setMessage("返回内容不匹配");
-			}
-		}else{
-			record.setMessage("OK");
-		}
 		return list;
 	}
+	private MetricReport responseBodyReport(HttpMonitor httpMonitor,HttpRecord record) {
+		MetricReport report = createTelnetReport(record);
+		report.setMetric(Metrics.HTTP.RESPONSE_BODY);
+		report.setStatus(StatusEnum.CLEAR.name());
+		CaseSensitiveEnum caseSensitiveEnum = CaseSensitiveEnum.of(httpMonitor.getCaseSensitive());
+		boolean should = true;
+		boolean shouldNot = true;
+		if(!Strings.isNullOrEmpty(httpMonitor.getShouldContain())){
+			if(CaseSensitiveEnum.NO.equals(caseSensitiveEnum)){
+				should = new CaseInsensitiveStrategyDecorator(new ShouldContainStrategy(record.getBody())).match(httpMonitor.getShouldContain());
+			}else{
+				should = new ShouldContainStrategy(record.getBody()).match(httpMonitor.getShouldContain());
+			}
+		}
+		if(!should) {
+			report.setStatus(StatusEnum.CRITICAL.name());
+			record.setMessage(String.format("返回结果没有包含预期内容：%s",httpMonitor.getShouldContain()));
+		}
+		if(!Strings.isNullOrEmpty(httpMonitor.getShouldNotContain())){
+			if(CaseSensitiveEnum.NO.equals(caseSensitiveEnum)){
+				shouldNot = new CaseInsensitiveStrategyDecorator(new ShouldNotContainStrategy(record.getBody())).match(httpMonitor.getShouldNotContain());
+			}else{
+				shouldNot = new ShouldNotContainStrategy(record.getBody()).match(httpMonitor.getShouldNotContain());
+			}
+		}
+		if(!shouldNot){
+			report.setStatus(StatusEnum.CRITICAL.name());
+			record.setMessage(Strings.nullToEmpty(record.getMessage())+String.format(" 返回结果包含预期之外的内容：%s",httpMonitor.getShouldNotContain()));
+		}
+		return report;
+	}
 
+	private MetricReport responseTimeReport(HttpRecord record) {
+		MetricReport report = createTelnetReport(record);
+		report.setMetric(Metrics.HTTP.RESPONSE_TIME);
+		Long response = record.getResponseTime();
+		if(response >= WARNING_VALUE) {
+			report.setStatus(StatusEnum.WARNING.name());
+			report.setMessage(String.format("响应时间%s,超过阀值%s毫秒",record.getResponseTime(),WARNING_VALUE));
+		}else {
+			report.setStatus(StatusEnum.CLEAR.name());
+			report.setMessage(String.format("响应时间：%s毫秒",record.getResponseTime()));
+		}
+		return report;
+	}
 	private MetricReport createTelnetReport(HttpRecord record) {
 		MetricReport report = createReport(record);
 		report.setType(MonitorType.HTTP.getName());

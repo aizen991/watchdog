@@ -18,8 +18,6 @@ public class NewHttpMonitor extends AbstractNewMonitor {
 	private String requestParams;
 	private String userid;
 	private String password;
-	private String httpCondition;
-	private Integer httpValue;
 	private String userAgent;
 	private String httpHeader;
 	private String shouldContain;

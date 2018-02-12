@@ -22,8 +22,6 @@ public class HttpMonitor extends Monitor {
 	private String requestParams;
 	private String userid;
 	private String password;
-	private String httpCondition;
-	private Integer httpValue;
 	private String userAgent;
 	private String httpHeader;
 	private String shouldContain;
@@ -41,14 +39,6 @@ public class HttpMonitor extends Monitor {
 		YES,NO;
 		public static CaseSensitiveEnum of(String condition){
 			Optional<CaseSensitiveEnum> optional = Enums.getIfPresent(CaseSensitiveEnum.class, condition);
-			return optional.get();
-		}
-	}
-	
-	public static enum HttpConditionEnum{
-		LT,GT,EQ,NE,LE,GE;
-		public static HttpConditionEnum of(String condition){
-			Optional<HttpConditionEnum> optional = Enums.getIfPresent(HttpConditionEnum.class, condition);
 			return optional.get();
 		}
 	}

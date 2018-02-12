@@ -8,19 +8,17 @@
 		<result property="requestParams" column="request_params" />
 		<result property="userid" column="userid" />
 		<result property="password" column="password" />
-		<result property="httpCondition" column="http_condition" />
-		<result property="httpValue" column="http_value" />
 		<result property="userAgent" column="user_agent" />
 		<result property="httpHeader" column="http_header" />
 		<result property="shouldContain" column="should_contain" />
 		<result property="shouldNotContain" column="should_not_contain" />
 		<result property="caseSensitive" column="case_sensitive" />
 		<result property="name" column="name" />
-		<result property="type.id" column="type_id" />
+		<result property="type" column="type" />
 		<result property="pollingInterval" column="polling_interval" />
 	</resultMap>
-	<sql id="table">http_url_monitor</sql>
-	<sql id="columns">url,timeout,method,request_params,userid,password,http_condition,http_value,user_agent,http_header,should_contain,should_not_contain,case_sensitive</sql>
+	<sql id="table">http_monitor</sql>
+	<sql id="columns">url,timeout,method,request_params,userid,password,user_agent,http_header,should_contain,should_not_contain,case_sensitive</sql>
 	<sql id="limit"> limit #{pageRequest.offset},#{pageRequest.size} 	</sql>
 	<sql id="orderBy">
 		<if test="pageRequest.orders.size() > 0">
@@ -35,9 +33,9 @@
 		</if>
 	</sql>
 	<select id="findByPage" parameterType="PageRequest" resultMap="HttpMonitorMap">
-		select h.id,h.url,h.timeout,h.method,h.request_params,h.userid,h.password,h.http_condition,h.http_value,h.user_agent,
+		select h.id,h.url,h.timeout,h.method,h.request_params,h.userid,h.password,h.user_agent,
 		h.http_header,h.should_contain,h.should_not_contain,h.case_sensitive,
-		m.name,m.type_id,m.polling_interval
+		m.name,m.type,m.polling_interval
 		from
 		<include refid="table" /> h left join monitor m on h.id=m.id
 		where 1=1
@@ -52,9 +50,9 @@
 		<include refid="findByPageCriteria" />
 	</select>
 	<select id="findListBySqlCommand" parameterType="SqlQueryCommand" resultMap="HttpMonitorMap">
-		select h.id,h.url,h.timeout,h.method,h.request_params,h.userid,h.password,h.http_condition,h.http_value,h.user_agent,
+		select h.id,h.url,h.timeout,h.method,h.request_params,h.userid,h.password,h.user_agent,
 		h.http_header,h.should_contain,h.should_not_contain,h.case_sensitive,
-		m.name,m.type_id,m.polling_interval
+		m.name,m.type,m.polling_interval
 		from
 		<include refid="table" /> h left join monitor m on h.id=m.id
 		where 1=1
@@ -78,8 +76,6 @@
 			#{requestParams},
 			#{userid},
 			#{password},
-			#{httpCondition},
-			#{httpValue},
 			#{userAgent},
 			#{httpHeader},
 			#{shouldContain},
