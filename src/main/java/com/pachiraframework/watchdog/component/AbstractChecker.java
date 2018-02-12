@@ -10,7 +10,6 @@ import com.pachiraframework.domain.WrappedPageRequest;
 import com.pachiraframework.watchdog.entity.AbstractRecord;
 import com.pachiraframework.watchdog.entity.MetricReport;
 import com.pachiraframework.watchdog.entity.Monitor;
-import com.pachiraframework.watchdog.entity.PingRecord;
 import com.pachiraframework.watchdog.event.WatchdogEventBus;
 import com.pachiraframework.watchdog.event.event.MetricReportEvent;
 
@@ -59,7 +58,7 @@ public abstract class AbstractChecker {
 	 * @param monitor
 	 * @return
 	 */
-	protected abstract PingRecord doMonitor(Monitor monitor);
+	protected abstract AbstractRecord doMonitor(Monitor monitor);
 	
 	/**
 	 * 检查监控器输出的原始数据，输出指标检查报告，并且把数据持久化到对应的中间件上（如elasticsearch,mysql,mongodb）

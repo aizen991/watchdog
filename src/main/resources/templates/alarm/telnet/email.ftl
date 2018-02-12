@@ -17,6 +17,10 @@
 				</div>
 				<div class="row">
 					<div class="col-md-5">主机：${monitor.host}</div>
+					<div class="col-md-5">端口：${monitor.port}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-5">超时：${monitor.timeout}</div>
 					<div class="col-md-5">间隔：${monitor.pollingInterval}</div>
 				</div>
 			</div>
@@ -29,16 +33,7 @@
 					<div class="col-md-5">检查时间：${record.timestamp?string("yyyy-MM-dd HH:mm:ss")}</div>
 				</div>
 				<div class="row">
-					<div class="col-md-5">发送次数：${record.sent}</div>
-					<div class="col-md-5">成功次数：${record.success}</div>
-				</div>
-				<div class="row">
-					<div class="col-md-5">失败次数：${record.lost}</div>
-					<div class="col-md-5">最大响应时间：${record.max}</div>
-				</div>
-				<div class="row">
-					<div class="col-md-5">最短响应时间：${record.min}</div>
-					<div class="col-md-5">平均响应时间：${record.avg}</div>
+					<div class="col-md-5">响应时间：${record.responseTime}(毫秒)</div>
 				</div>
 				<div class="row">
 					<div class="col-md-10">消息：${record.message!""}</div>

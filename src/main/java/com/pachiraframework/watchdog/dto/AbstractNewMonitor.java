@@ -14,5 +14,5 @@ import lombok.ToString;
 @ToString
 public abstract class AbstractNewMonitor {
 	private String name;
-	private Long pollingInterval = 5000L;
+	private Long pollingInterval = 10*60*1000L;
 }

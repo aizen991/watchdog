@@ -1,5 +1,8 @@
 package com.pachiraframework.watchdog.component;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -30,6 +33,9 @@ public class MonitorScheduler {
 	private String mode;
 	@Autowired
 	private PingChecker pingChecker;
+	@Autowired
+	private TelnetChecker telnetChecker;
+	private ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
 	/**
 	 * 一分钟执行一次
@@ -121,13 +127,15 @@ public class MonitorScheduler {
 	}
 
 	private void doCheck(Integer interval) {
-		if(SCHEDULE_MODE_CLUSTER.equals(this.mode)) {
+		if (SCHEDULE_MODE_CLUSTER.equals(this.mode)) {
 			log.warn("当前运行的是cluster模式，使用外部统一的任务调度中心进行任务调度.");
 			return;
 		}
-		if(SCHEDULE_MODE_LOCAL.equals(this.mode)) {
-			log.info("monitor.scheduler.{}:开始执行",interval);
-			pingChecker.check(interval);
+		if (SCHEDULE_MODE_LOCAL.equals(this.mode)) {
+			log.info("monitor.scheduler.{}:开始执行", interval);
+			
+			threadPool.submit(() -> pingChecker.check(interval));
+			threadPool.submit(() -> telnetChecker.check(interval));
 		}
 	}
 }

@@ -20,14 +20,13 @@ import com.pachiraframework.watchdog.event.event.MetricReportEvent;
  */
 @Component
 public class EmailAction extends LimitedAction {
-	private static final String TEMPLATE_NAME = "alarm/ping/email.ftl";
 	@Autowired
 	private JavaMailSender javaMailSender;
 
 	@Override
 	protected void doExecute(MetricReportEvent context) throws Exception {
 		StringWriter out = new StringWriter();
-		getTemplate().process(context, out);
+		getTemplate(context).process(context, out);
 		String text = out.toString();
 		javaMailSender.send(new MimeMessagePreparator() {
 			@Override
@@ -42,8 +41,8 @@ public class EmailAction extends LimitedAction {
 	}
 
 	@Override
-	protected String templateName() {
-		return TEMPLATE_NAME;
+	protected String name() {
+		return "email";
 	}
 
 }

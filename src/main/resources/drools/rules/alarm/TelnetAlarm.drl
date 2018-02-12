@@ -7,31 +7,31 @@ import com.pachiraframework.watchdog.action.EmailAction;
 
 global com.pachiraframework.watchdog.util.SpringContext spring;
 
-rule "PING:控制台打印监控明细-测试阶段使用"
+rule "TELNET:控制台打印监控明细-测试阶段使用"
 	no-loop true
 	salience 1 //数字越大，优先级越高
 	date-expires   "2018-03-28 00:00:00"
 	when 
-		$event:MetricReportEvent(monitor.type=='PING')
+		$event:MetricReportEvent(monitor.type=='TELNET')
 	then
 		spring.get(ConsoleAction.class).execute($event);
 end 
 
-rule "PING:非工作时间短信发送监控信息"
+rule "TELNET:非工作时间短信发送监控信息"
 	no-loop true
 	salience 100 //数字越大，优先级越高
 	calendars "not-weekdays"
 	when 
-		$event:MetricReportEvent(monitor.type=='PING')
+		$event:MetricReportEvent(monitor.type=='TELNET')
 	then
 		spring.get(SmsAction.class).execute($event);
 end 
 
-rule "PING:邮件记录所有监控信息"
+rule "TELNET:邮件记录所有监控信息"
 	no-loop true
 	salience 10 //数字越大，优先级越高
 	when 
-		$event:MetricReportEvent(monitor.type=='PING')
+		$event:MetricReportEvent(monitor.type=='TELNET')
 	then
 		spring.get(EmailAction.class).execute($event);
 end 

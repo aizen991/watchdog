@@ -6,16 +6,12 @@ ID:${monitor.id}
 类型:${monitor.type}		
 名称:${monitor.name}	
 主机:${monitor.host}
+端口:${monitor.port}
 间隔:${monitor.pollingInterval}
 ####################################################################################################
 ####                                             监控记录                                                                                                                                              #####
 ####################################################################################################
 ID:${record.id}
-累计发送次数:${record.sent}
-成功次数:${record.success}
-失败次数:${record.lost}
-最短响应时间:${record.min}
-最大响应时间:${record.max}
-平均响应时间:${record.avg}
+响应时间:${record.responseTime}
 消息:${record.message!""}
 <#include "/alarm/common/console_reports.ftl">

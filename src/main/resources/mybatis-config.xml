@@ -20,5 +20,6 @@
     <mappers>
         <mapper resource="mappers/MonitorMapper.xml"/>
         <mapper resource="mappers/PingMonitorMapper.xml"/>
+        <mapper resource="mappers/TelnetMonitorMapper.xml"/>
     </mappers>
 </configuration>

@@ -12,16 +12,12 @@ import com.pachiraframework.watchdog.event.event.MetricReportEvent;
  */
 @Component
 public class WechatAction extends LimitedAction {
-	private static final String TEMPLATE_NAME = "alarm/ping/wechat.ftl";
-
 	@Override
 	protected void doExecute(MetricReportEvent context) throws Exception {
 
 	}
-
 	@Override
-	protected String templateName() {
-		return TEMPLATE_NAME;
+	protected String name() {
+		return "wechat";
 	}
-
 }

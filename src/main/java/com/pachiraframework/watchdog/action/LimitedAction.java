@@ -24,6 +24,18 @@ public abstract class LimitedAction extends AbstractAction {
 	}
 	@Override
 	public void execute(MetricReportEvent context){
+		boolean needExecute = needExecute(context);
+		if(needExecute) {
+			super.execute(context);
+		}
+	}
+	
+	/**
+	 * 是否需要执行，默认实现：状态为UP或者CLEAR的不需要执行后续逻辑
+	 * @param context
+	 * @return
+	 */
+	protected boolean needExecute(MetricReportEvent context) {
 		boolean needExecute = false;
 		for(MetricReport report : context.getReports()) {
 			StatusEnum status = StatusEnum.valueOf(report.getStatus());
@@ -38,15 +50,14 @@ public abstract class LimitedAction extends AbstractAction {
 				break;
 			}
 		}
-		if(needExecute) {
-			super.execute(context);
-		}
+		return needExecute;
 	}
 	/**
-	 * 发送间隔分钟数，默认10分钟
+	 * 发送间隔分钟数，默认20分钟
 	 * @return
 	 */
 	protected int duration() {
-		return 10;
+		return 20;
 	}
+
 }
