@@ -35,6 +35,8 @@ public class MonitorScheduler {
 	private PingChecker pingChecker;
 	@Autowired
 	private TelnetChecker telnetChecker;
+	@Autowired
+	private HttpChecker httpChecker;
 	private ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
 	/**
@@ -136,6 +138,7 @@ public class MonitorScheduler {
 			
 			threadPool.submit(() -> pingChecker.check(interval));
 			threadPool.submit(() -> telnetChecker.check(interval));
+			threadPool.submit(() -> httpChecker.check(interval));
 		}
 	}
 }

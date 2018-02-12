@@ -37,8 +37,8 @@ public class PingChecker extends AbstractChecker{
 	private PingInspector pingInspector;
 	
 	@Override
-	protected List<MetricReport> doInspectRecord(AbstractRecord record) {
-		List<MetricReport> results = pingInspector.inspect((PingRecord)record);
+	protected List<MetricReport> doInspectRecord(Monitor monitor,AbstractRecord record) {
+		List<MetricReport> results = pingInspector.inspect(monitor,(PingRecord)record);
 		metricReportDao.batchInsert(results);
 		log.info("monitor.ping.metric.report.insert.success:record id ={},size={}",record.getId(),results.size());
 		return results;

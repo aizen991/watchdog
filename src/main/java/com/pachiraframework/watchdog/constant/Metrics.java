@@ -34,8 +34,8 @@ public class Metrics {
 //		public static final String TIME_AVG = PREFIX+"time.avg";
 	}
 	
-	public static final class HTTPURL{
-		private static final String PREFIX = "httpurl.";
+	public static final class HTTP{
+		private static final String PREFIX = "http.";
 		public static final String AVAILABLE = PREFIX+"available";
 		public static final String RESPONSE_CODE = PREFIX+"response.code";
 		public static final String RESPONSE_TIME = PREFIX+"response.time";

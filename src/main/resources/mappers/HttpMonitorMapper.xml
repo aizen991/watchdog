@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pachiraframework.watchdog.dao.HttpMonitorDao">
+	<resultMap id="HttpMonitorMap" type="HttpMonitor">
+		<id property="id" column="id" />
+		<result property="url" column="url" />
+		<result property="timeout" column="timeout" />
+		<result property="method" column="method" />
+		<result property="requestParams" column="request_params" />
+		<result property="userid" column="userid" />
+		<result property="password" column="password" />
+		<result property="httpCondition" column="http_condition" />
+		<result property="httpValue" column="http_value" />
+		<result property="userAgent" column="user_agent" />
+		<result property="httpHeader" column="http_header" />
+		<result property="shouldContain" column="should_contain" />
+		<result property="shouldNotContain" column="should_not_contain" />
+		<result property="caseSensitive" column="case_sensitive" />
+		<result property="name" column="name" />
+		<result property="type.id" column="type_id" />
+		<result property="pollingInterval" column="polling_interval" />
+	</resultMap>
+	<sql id="table">http_url_monitor</sql>
+	<sql id="columns">url,timeout,method,request_params,userid,password,http_condition,http_value,user_agent,http_header,should_contain,should_not_contain,case_sensitive</sql>
+	<sql id="limit"> limit #{pageRequest.offset},#{pageRequest.size} 	</sql>
+	<sql id="orderBy">
+		<if test="pageRequest.orders.size() > 0">
+			<foreach collection="pageRequest.orders" item="order" open="order by"
+				separator="," close=" "> ${order.property} ${order.direction}             
+			</foreach>
+		</if>
+	</sql> 	<!-- 分页查询模版普通信息 -->
+	<sql id="findByPageCriteria">
+		<if test="params.appId!=null and params.appId !=''">
+			and `app_id` =#{params.appId}	
+		</if>
+	</sql>
+	<select id="findByPage" parameterType="PageRequest" resultMap="HttpMonitorMap">
+		select h.id,h.url,h.timeout,h.method,h.request_params,h.userid,h.password,h.http_condition,h.http_value,h.user_agent,
+		h.http_header,h.should_contain,h.should_not_contain,h.case_sensitive,
+		m.name,m.type_id,m.polling_interval
+		from
+		<include refid="table" /> h left join monitor m on h.id=m.id
+		where 1=1
+		<include refid="findByPageCriteria" />
+		<include refid="orderBy" />
+		<include refid="limit" />
+	</select>
+	<select id="findByPageCount" parameterType="PageRequest" resultType="int">
+		select count(*) from
+		<include refid="table" /> h left join monitor m on h.id=m.id
+		where 1=1
+		<include refid="findByPageCriteria" />
+	</select>
+	<select id="findListBySqlCommand" parameterType="SqlQueryCommand" resultMap="HttpMonitorMap">
+		select h.id,h.url,h.timeout,h.method,h.request_params,h.userid,h.password,h.http_condition,h.http_value,h.user_agent,
+		h.http_header,h.should_contain,h.should_not_contain,h.case_sensitive,
+		m.name,m.type_id,m.polling_interval
+		from
+		<include refid="table" /> h left join monitor m on h.id=m.id
+		where 1=1
+        <foreach item="k" index="key" collection="where" >
+           ${k.andOr} ${k.column} ${k.operator} #{k.value}  
+        </foreach>
+        <foreach item="k" index="key" collection="orders" separator="," open=" order by ">
+        	${k.column} ${k.order}
+        </foreach>
+        <if test="limit!=null">
+        	limit #{limit.offset},#{limit.size}
+        </if>
+	</select>
+	<insert id="insert" parameterType="HttpMonitor" useGeneratedKeys="false" keyProperty="id">
+		INSERT INTO <include refid="table"/>(id,<include refid="columns"/>)
+		VALUES(
+			#{id},
+			#{url},
+			#{timeout},
+			#{method},
+			#{requestParams},
+			#{userid},
+			#{password},
+			#{httpCondition},
+			#{httpValue},
+			#{userAgent},
+			#{httpHeader},
+			#{shouldContain},
+			#{shouldNotContain},
+			#{caseSensitive}	)
+	</insert>
+</mapper>

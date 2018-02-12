@@ -11,7 +11,7 @@
 	
 		<typeAlias alias="Monitor" type="com.pachiraframework.watchdog.entity.Monitor"/>
 		<typeAlias alias="PingMonitor" type="com.pachiraframework.watchdog.entity.PingMonitor"/>
-		<typeAlias alias="UrlMonitor" type="com.pachiraframework.watchdog.entity.UrlMonitor"/>
+		<typeAlias alias="HttpMonitor" type="com.pachiraframework.watchdog.entity.HttpMonitor"/>
 		<typeAlias alias="TelnetMonitor" type="com.pachiraframework.watchdog.entity.TelnetMonitor"/>
 	</typeAliases>
 	<typeHandlers>
@@ -21,5 +21,6 @@
         <mapper resource="mappers/MonitorMapper.xml"/>
         <mapper resource="mappers/PingMonitorMapper.xml"/>
         <mapper resource="mappers/TelnetMonitorMapper.xml"/>
+        <mapper resource="mappers/HttpMonitorMapper.xml"/>
     </mappers>
 </configuration>

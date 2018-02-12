@@ -22,7 +22,7 @@ public enum MonitorType {
 	/**
 	 * HTTP URL监控
 	 */
-	URL("HTTP(S) URL监控","url.png");
+	HTTP("HTTP(S) URL监控","url.png");
 	private String name;
 	/**
 	 * 图标地址

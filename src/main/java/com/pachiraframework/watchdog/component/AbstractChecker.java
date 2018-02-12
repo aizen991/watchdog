@@ -43,7 +43,7 @@ public abstract class AbstractChecker {
 				executorService.submit(()->{
 					log.info("检查monitor-id:{},name:{}",monitor.getId(),monitor.getName());
 					AbstractRecord record = doMonitor(monitor);
-					List<MetricReport> reports = doInspectRecord(record);
+					List<MetricReport> reports = doInspectRecord(monitor,record);
 					MetricReportEvent event = MetricReportEvent.builder().reports(reports).monitor(monitor).record(record).build();
 					WatchdogEventBus.asyncEventBus().post(event);
 				});
@@ -65,7 +65,7 @@ public abstract class AbstractChecker {
 	 * @param record
 	 * @return
 	 */
-	protected abstract List<MetricReport> doInspectRecord(AbstractRecord record);
+	protected abstract List<MetricReport> doInspectRecord(Monitor monitor,AbstractRecord record);
 	
 	/**
 	 * 分页批量读取数据库中保存的额监控器数据

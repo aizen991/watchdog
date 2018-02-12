@@ -75,8 +75,8 @@ public class TelnetChecker extends AbstractChecker {
 	}
 
 	@Override
-	protected List<MetricReport> doInspectRecord(AbstractRecord record) {
-		List<MetricReport> results = telnetInspector.inspect((TelnetRecord) record);
+	protected List<MetricReport> doInspectRecord(Monitor monitor,AbstractRecord record) {
+		List<MetricReport> results = telnetInspector.inspect(monitor,(TelnetRecord) record);
 		metricReportDao.batchInsert(results);
 		log.info("monitor.telnet.metric.report.insert.success:record id ={},size={}", record.getId(), results.size());
 		return results;

@@ -14,7 +14,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(callSuper=true)
-public class UrlMonitor extends Monitor {
+public class HttpMonitor extends Monitor {
 	private static final long serialVersionUID = -3642660116581605407L;
 	private String url;
 	private Integer timeout;//秒
@@ -30,7 +30,7 @@ public class UrlMonitor extends Monitor {
 	private String shouldNotContain;
 	private String caseSensitive;
 	public static enum MethodEnum{
-		GET,POST;
+		GET,POST,HEAD,PUT,DELETE;
 		public static MethodEnum of(String condition){
 			Optional<MethodEnum> optional = Enums.getIfPresent(MethodEnum.class, condition);
 			return optional.get();
