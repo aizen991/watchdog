@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-02-12 22:15:33
+Date: 2018-02-13 07:35:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,7 +38,7 @@ CREATE TABLE `http_monitor` (
 -- ----------------------------
 -- Records of http_monitor
 -- ----------------------------
-INSERT INTO `http_monitor` VALUES ('93', 'https://www.baidu.com/', '3000', 'GET', null, null, null, null, null, null, null, 'NO');
+INSERT INTO `http_monitor` VALUES ('93', 'https://www.baidu.com/', '3000', 'GET', null, null, null, null, null, '使得法国', null, 'NO');
 
 -- ----------------------------
 -- Table structure for monitor

@@ -67,7 +67,7 @@ public class HttpInspector extends AbstractInspector<HttpRecord> {
 		}
 		if(!should) {
 			report.setStatus(StatusEnum.CRITICAL.name());
-			record.setMessage(String.format("返回结果没有包含预期内容：%s",httpMonitor.getShouldContain()));
+			report.setMessage(String.format("返回结果没有包含预期内容：%s",httpMonitor.getShouldContain()));
 		}
 		if(!Strings.isNullOrEmpty(httpMonitor.getShouldNotContain())){
 			if(CaseSensitiveEnum.NO.equals(caseSensitiveEnum)){
@@ -78,7 +78,7 @@ public class HttpInspector extends AbstractInspector<HttpRecord> {
 		}
 		if(!shouldNot){
 			report.setStatus(StatusEnum.CRITICAL.name());
-			record.setMessage(Strings.nullToEmpty(record.getMessage())+String.format(" 返回结果包含预期之外的内容：%s",httpMonitor.getShouldNotContain()));
+			report.setMessage(Strings.nullToEmpty(record.getMessage())+String.format(" 返回结果包含预期之外的内容：%s",httpMonitor.getShouldNotContain()));
 		}
 		return report;
 	}
