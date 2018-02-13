@@ -37,6 +37,8 @@ public class MonitorScheduler {
 	private TelnetChecker telnetChecker;
 	@Autowired
 	private HttpChecker httpChecker;
+	@Autowired
+	private MemcachedChecker memcachedChecker;
 	private ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
 	/**
@@ -135,10 +137,11 @@ public class MonitorScheduler {
 		}
 		if (SCHEDULE_MODE_LOCAL.equals(this.mode)) {
 			log.info("monitor.scheduler.{}:开始执行", interval);
-			
+
 			threadPool.submit(() -> pingChecker.check(interval));
 			threadPool.submit(() -> telnetChecker.check(interval));
 			threadPool.submit(() -> httpChecker.check(interval));
+			threadPool.submit(() -> memcachedChecker.check(interval));
 		}
 	}
 }

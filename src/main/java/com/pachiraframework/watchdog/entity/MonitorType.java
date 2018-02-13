@@ -5,6 +5,7 @@ import lombok.Getter;
 
 /**
  * 监控类型
+ * 
  * @author wangxuzheng
  *
  */
@@ -14,15 +15,19 @@ public enum MonitorType {
 	/**
 	 * PING 主机
 	 */
-	PING("PING","ping.png"),
+	PING("PING", "ping.png"),
 	/**
 	 * 
 	 */
-	TELNET("TELNET","telnet.png"),
+	TELNET("TELNET", "telnet.png"),
 	/**
 	 * HTTP URL监控
 	 */
-	HTTP("HTTP(S) URL监控","url.png");
+	HTTP("HTTP", "url.png"),
+	/**
+	* memcached
+	*/
+	MEMCACHED("MEMCACHED", "memcached.png");
 	private String name;
 	/**
 	 * 图标地址

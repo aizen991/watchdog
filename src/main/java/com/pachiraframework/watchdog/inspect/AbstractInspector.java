@@ -1,5 +1,6 @@
 package com.pachiraframework.watchdog.inspect;
 
+import java.util.Date;
 import java.util.List;
 
 import com.pachiraframework.watchdog.entity.AbstractRecord;
@@ -11,18 +12,19 @@ import com.pachiraframework.watchdog.entity.Monitor;
  * @author KevinWang
  *
  */
-public abstract class AbstractInspector<T extends AbstractRecord> {
+public abstract class AbstractInspector{
 	/**
 	 * 质量审查
 	 * @param record
 	 * @return
 	 */
-	public abstract List<MetricReport> inspect(Monitor monitor,T record);
+	public abstract List<MetricReport> inspect(Monitor monitor,AbstractRecord record);
 	
-	protected MetricReport createReport(T record) {
+	protected MetricReport createReport(AbstractRecord record) {
 		MetricReport report = new MetricReport();
 		report.setMoitorId(record.getMoitorId());
 		report.setRecordId(record.getId());
+		report.setTimestamp(new Date());
 		return report;
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.pachiraframework.watchdog.constant.Metrics;
+import com.pachiraframework.watchdog.entity.AbstractRecord;
 import com.pachiraframework.watchdog.entity.HttpMonitor;
 import com.pachiraframework.watchdog.entity.HttpMonitor.CaseSensitiveEnum;
 import com.pachiraframework.watchdog.entity.HttpRecord;
@@ -29,10 +30,11 @@ import com.pachiraframework.watchdog.entity.MonitorType;
  *
  */
 @Component
-public class HttpInspector extends AbstractInspector<HttpRecord> {
+public class HttpInspector extends AbstractInspector {
 	private static final Long WARNING_VALUE = 3000L;
 	@Override
-	public List<MetricReport> inspect(Monitor monitor,HttpRecord record) {
+	public List<MetricReport> inspect(Monitor monitor,AbstractRecord abstractRecord) {
+		HttpRecord record = (HttpRecord)abstractRecord;
 		HttpMonitor httpMonitor = (HttpMonitor)monitor;
 		List<MetricReport> list = Lists.newArrayList();
 		// Metrics.HTTP.AVAILABLE 存活

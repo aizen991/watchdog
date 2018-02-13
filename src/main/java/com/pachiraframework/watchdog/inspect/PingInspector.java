@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.collect.Lists;
 import com.pachiraframework.watchdog.constant.Metrics;
+import com.pachiraframework.watchdog.entity.AbstractRecord;
 import com.pachiraframework.watchdog.entity.MetricReport;
 import com.pachiraframework.watchdog.entity.Monitor;
 import com.pachiraframework.watchdog.entity.MetricReport.StatusEnum;
@@ -27,9 +28,10 @@ import com.pachiraframework.watchdog.entity.PingRecord;
  *
  */
 @Component
-public class PingInspector extends AbstractInspector<PingRecord> {
+public class PingInspector extends AbstractInspector {
 	@Override
-	public List<MetricReport> inspect(Monitor monitor,PingRecord record) {
+	public List<MetricReport> inspect(Monitor monitor,AbstractRecord pingRecord) {
+		PingRecord record = (PingRecord)pingRecord;
 		List<MetricReport> list = Lists.newArrayList();
 
 		// Metrics.PING.AVAILABLE 存活

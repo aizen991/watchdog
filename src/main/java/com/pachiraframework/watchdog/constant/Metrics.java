@@ -62,6 +62,20 @@ public class Metrics {
 		public static final String THREADS_RUNNING = PREFIX+"status.threads_running";
 	}
 	
+	public static final class Memcached{
+		private static final String PREFIX = "memcached.";
+		public static final String AVAILABLE = PREFIX+"available";
+		public static final String CURR_CONNECTIONS = PREFIX+"stats.curr_connections";
+		/**
+		 * get命中率
+		 */
+		public static final String GET_HITS_RATE = PREFIX+"stats.get_hits_rate";
+		/**
+		 * 内存利用率
+		 */
+		public static final String MEMORY_USED_RATE = PREFIX + "stats.memory_used_rate";
+	}
+	
 	public static final class TOMCAT{
 		private static final String PREFIX = "tomcat.";
 		public static final String AVAILABLE = PREFIX+"available";

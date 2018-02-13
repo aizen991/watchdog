@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.collect.Lists;
 import com.pachiraframework.watchdog.constant.Metrics;
+import com.pachiraframework.watchdog.entity.AbstractRecord;
 import com.pachiraframework.watchdog.entity.MetricReport;
 import com.pachiraframework.watchdog.entity.Monitor;
 import com.pachiraframework.watchdog.entity.MetricReport.StatusEnum;
@@ -25,9 +26,10 @@ import com.pachiraframework.watchdog.entity.TelnetRecord;
  *
  */
 @Component
-public class TelnetInspector extends AbstractInspector<TelnetRecord> {
+public class TelnetInspector extends AbstractInspector {
 	@Override
-	public List<MetricReport> inspect(Monitor monitor,TelnetRecord record) {
+	public List<MetricReport> inspect(Monitor monitor,AbstractRecord telnetRecord) {
+		TelnetRecord record = (TelnetRecord)telnetRecord;
 		List<MetricReport> list = Lists.newArrayList();
 
 		// Metrics.TELNET.AVAILABLE 存活

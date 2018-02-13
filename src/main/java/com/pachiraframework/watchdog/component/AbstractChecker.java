@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.google.common.base.Throwables;
 import com.pachiraframework.domain.Page;
 import com.pachiraframework.domain.PageRequest;
 import com.pachiraframework.domain.WrappedPageRequest;
@@ -42,10 +43,14 @@ public abstract class AbstractChecker {
 			for (Monitor monitor : page.getContent()) {
 				executorService.submit(()->{
 					log.info("检查monitor-id:{},name:{}",monitor.getId(),monitor.getName());
-					AbstractRecord record = doMonitor(monitor);
-					List<MetricReport> reports = doInspectRecord(monitor,record);
-					MetricReportEvent event = MetricReportEvent.builder().reports(reports).monitor(monitor).record(record).build();
-					WatchdogEventBus.asyncEventBus().post(event);
+					try {
+						AbstractRecord record = doMonitor(monitor);
+						List<MetricReport> reports = doInspectRecord(monitor,record);
+						MetricReportEvent event = MetricReportEvent.builder().reports(reports).monitor(monitor).record(record).build();
+						WatchdogEventBus.asyncEventBus().post(event);
+					}catch(Exception e) {
+						log.error(Throwables.getStackTraceAsString(e));
+					}
 				});
 			}
 			pageRequest = new WrappedPageRequest(new PageRequest(++startPage, BATCH_FETCH_SIZE));
@@ -58,7 +63,7 @@ public abstract class AbstractChecker {
 	 * @param monitor
 	 * @return
 	 */
-	protected abstract AbstractRecord doMonitor(Monitor monitor);
+	protected abstract AbstractRecord doMonitor(Monitor monitor) throws Exception;
 	
 	/**
 	 * 检查监控器输出的原始数据，输出指标检查报告，并且把数据持久化到对应的中间件上（如elasticsearch,mysql,mongodb）

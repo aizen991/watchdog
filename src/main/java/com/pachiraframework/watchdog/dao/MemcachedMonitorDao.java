@@ -12,13 +12,11 @@ import com.pachiraframework.dao.support.SqlQueryCommand;
  *
  */
 @Repository
-public class HttpUrlMonitorDao extends MonitorDao {
-
+public class MemcachedMonitorDao extends MonitorDao {
 	@Override
 	public <T> T getById(Serializable id) {
 		SqlQueryCommand command = new SqlQueryCommand();
 		command.addWhereSqlCondition(SqlCondition.and("h.id", "=", id));
 		return this.findOneBySqlCommand(command);
 	}
-	
 }

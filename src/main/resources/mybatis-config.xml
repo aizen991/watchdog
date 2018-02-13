@@ -13,6 +13,7 @@
 		<typeAlias alias="PingMonitor" type="com.pachiraframework.watchdog.entity.PingMonitor"/>
 		<typeAlias alias="HttpMonitor" type="com.pachiraframework.watchdog.entity.HttpMonitor"/>
 		<typeAlias alias="TelnetMonitor" type="com.pachiraframework.watchdog.entity.TelnetMonitor"/>
+		<typeAlias alias="MemcachedMonitor" type="com.pachiraframework.watchdog.entity.MemcachedMonitor"/>
 	</typeAliases>
 	<typeHandlers>
 		<typeHandler handler="com.pachiraframework.dao.IdHandler" />
@@ -22,5 +23,6 @@
         <mapper resource="mappers/PingMonitorMapper.xml"/>
         <mapper resource="mappers/TelnetMonitorMapper.xml"/>
         <mapper resource="mappers/HttpMonitorMapper.xml"/>
+        <mapper resource="mappers/MemcachedMonitorMapper.xml"/>
     </mappers>
 </configuration>
