@@ -25,6 +25,10 @@ public enum MonitorType {
 	 */
 	HTTP("HTTP", "url.png"),
 	/**
+	 * redis服务器
+	 */
+	REDIS("REDIS","redis.png"),
+	/**
 	* memcached
 	*/
 	MEMCACHED("MEMCACHED", "memcached.png");

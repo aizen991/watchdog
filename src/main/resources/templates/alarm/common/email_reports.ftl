@@ -2,7 +2,7 @@
 			<div class="panel-heading">监控报告</div>
 			<div class="panel-body">
 				<#list reports as report>
-				<#assign statusTextClassMap={"UP":"text-info","DOWN":"text-danger","CLEAR":"text-success","WARNING":"text-warning","CRITICAL":"text-danger"}>
+				<#assign statusTextClassMap={"UP":"text-success","DOWN":"text-danger","CLEAR":"text-success","WARNING":"text-warning","CRITICAL":"text-danger"}>
 				<div class="row">
 					<p class="${statusTextClassMap[report.status]}">监控指标【${report.metric}】:</p>
 				</div>

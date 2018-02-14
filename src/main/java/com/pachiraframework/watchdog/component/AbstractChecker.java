@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.assertj.core.util.Strings;
+
 import com.google.common.base.Throwables;
 import com.pachiraframework.domain.Page;
 import com.pachiraframework.domain.PageRequest;
@@ -63,7 +65,7 @@ public abstract class AbstractChecker {
 	 * @param monitor
 	 * @return
 	 */
-	protected abstract AbstractRecord doMonitor(Monitor monitor) throws Exception;
+	protected abstract AbstractRecord doMonitor(Monitor monitor);
 	
 	/**
 	 * 检查监控器输出的原始数据，输出指标检查报告，并且把数据持久化到对应的中间件上（如elasticsearch,mysql,mongodb）
@@ -78,4 +80,23 @@ public abstract class AbstractChecker {
 	 * @return
 	 */
 	protected abstract Page<Monitor> loadBatch(WrappedPageRequest pageRequest);
+	
+	protected Long longValue(String value) {
+		if(Strings.isNullOrEmpty(value)) {
+			return null;
+		}
+		return Long.valueOf(value);
+	}
+	protected Integer intValue(String value) {
+		if(Strings.isNullOrEmpty(value)) {
+			return null;
+		}
+		return Integer.valueOf(value);
+	}
+	protected Double doubleValue(String value) {
+		if(Strings.isNullOrEmpty(value)) {
+			return null;
+		}
+		return Double.valueOf(value);
+	}
 }

@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100113
 File Encoding         : 65001
 
-Date: 2018-02-13 17:24:18
+Date: 2018-02-14 16:18:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -94,7 +94,7 @@ CREATE TABLE `monitor` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of monitor
@@ -103,6 +103,7 @@ INSERT INTO `monitor` VALUES ('83', 'ping 127.0.0.1', 'PING', '60000', '2018-02-
 INSERT INTO `monitor` VALUES ('89', 'ping 127.0.0.1', 'TELNET', '60000', '2018-02-12 13:44:32', '2018-02-12 13:44:32');
 INSERT INTO `monitor` VALUES ('93', 'baidu.com', 'HTTP', '60000', '2018-02-12 21:42:04', '2018-02-12 21:42:04');
 INSERT INTO `monitor` VALUES ('94', 'memcache localhost', 'MEMCACHED', '60000', '2018-02-13 14:56:13', '2018-02-13 14:56:16');
+INSERT INTO `monitor` VALUES ('95', 'redis localhost', 'REDIS', '60000', '2018-02-14 15:55:34', '2018-02-14 15:55:37');
 
 -- ----------------------------
 -- Table structure for ping_monitor
@@ -119,6 +120,22 @@ CREATE TABLE `ping_monitor` (
 -- Records of ping_monitor
 -- ----------------------------
 INSERT INTO `ping_monitor` VALUES ('83', '127.0.0.1', '50');
+
+-- ----------------------------
+-- Table structure for redis_monitor
+-- ----------------------------
+DROP TABLE IF EXISTS `redis_monitor`;
+CREATE TABLE `redis_monitor` (
+  `id` bigint(20) NOT NULL,
+  `host` varchar(20) NOT NULL,
+  `port` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of redis_monitor
+-- ----------------------------
+INSERT INTO `redis_monitor` VALUES ('95', '127.0.0.1', '6379');
 
 -- ----------------------------
 -- Table structure for telnet_monitor

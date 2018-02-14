@@ -39,6 +39,8 @@ public class MonitorScheduler {
 	private HttpChecker httpChecker;
 	@Autowired
 	private MemcachedChecker memcachedChecker;
+	@Autowired
+	private RedisChecker redisChecker;
 	private ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
 	/**
@@ -142,6 +144,7 @@ public class MonitorScheduler {
 			threadPool.submit(() -> telnetChecker.check(interval));
 			threadPool.submit(() -> httpChecker.check(interval));
 			threadPool.submit(() -> memcachedChecker.check(interval));
+			threadPool.submit(() -> redisChecker.check(interval));
 		}
 	}
 }

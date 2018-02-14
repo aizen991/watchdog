@@ -76,6 +76,11 @@ public class Metrics {
 		public static final String MEMORY_USED_RATE = PREFIX + "stats.memory_used_rate";
 	}
 	
+	public static final class Redis{
+		private static final String PREFIX = "redis.";
+		public static final String AVAILABLE = PREFIX+"available";
+	}
+	
 	public static final class TOMCAT{
 		private static final String PREFIX = "tomcat.";
 		public static final String AVAILABLE = PREFIX+"available";

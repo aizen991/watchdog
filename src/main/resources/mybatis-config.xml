@@ -14,6 +14,7 @@
 		<typeAlias alias="HttpMonitor" type="com.pachiraframework.watchdog.entity.HttpMonitor"/>
 		<typeAlias alias="TelnetMonitor" type="com.pachiraframework.watchdog.entity.TelnetMonitor"/>
 		<typeAlias alias="MemcachedMonitor" type="com.pachiraframework.watchdog.entity.MemcachedMonitor"/>
+		<typeAlias alias="RedisMonitor" type="com.pachiraframework.watchdog.entity.RedisMonitor"/>
 	</typeAliases>
 	<typeHandlers>
 		<typeHandler handler="com.pachiraframework.dao.IdHandler" />
@@ -24,5 +25,6 @@
         <mapper resource="mappers/TelnetMonitorMapper.xml"/>
         <mapper resource="mappers/HttpMonitorMapper.xml"/>
         <mapper resource="mappers/MemcachedMonitorMapper.xml"/>
+        <mapper resource="mappers/RedisMonitorMapper.xml"/>
     </mappers>
 </configuration>
