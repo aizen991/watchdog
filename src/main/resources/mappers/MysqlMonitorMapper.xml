@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pachiraframework.watchdog.dao.MysqlMonitorDao">
+	<resultMap id="MysqlMonitorMap" type="MysqlMonitor">
+		<id property="id" column="id" />
+		<result property="host" column="host" />
+		<result property="port" column="port" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="baseDir" column="base_dir" />
+		<result property="dataDir" column="data_dir" />
+		<result property="server" column="server" />
+		<result property="hostName" column="host_name" />
+		<result property="os" column="os" />
+		<result property="version" column="version" />
+		<result property="encoding" column="encoding" />
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="pollingInterval" column="polling_interval" />
+	</resultMap>
+	<sql id="table">mysql_monitor</sql>
+	<sql id="columns">host,port,username,password,base_dir,data_dir,server,host_name,os,version,encoding</sql>
+	<sql id="limit"> limit #{pageRequest.offset},#{pageRequest.size} 	</sql>
+	<sql id="orderBy">
+		<if test="pageRequest.orders.size() > 0">
+			<foreach collection="pageRequest.orders" item="order" open="order by"
+				separator="," close=" "> ${order.property} ${order.direction}             
+			</foreach>
+		</if>
+	</sql> 	<!-- 分页查询模版普通信息 -->
+	<sql id="findByPageCriteria">
+		<if test="params.interval!=null">
+			and `polling_interval` =#{params.interval}	
+		</if>
+	</sql>
+	<select id="findByPage" parameterType="PageRequest" resultMap="MysqlMonitorMap">
+		select h.id,h.host,h.port,h.username,h.password,h.base_dir,h.data_dir,h.server,h.host_name,h.os,h.version,h.encoding,m.name,m.type,m.polling_interval
+		from
+		<include refid="table" /> h left join monitor m on h.id=m.id
+		where 1=1
+		<include refid="findByPageCriteria" />
+		<include refid="orderBy" />
+		<include refid="limit" />
+	</select>
+	<select id="findByPageCount" parameterType="PageRequest" resultType="int">
+		select count(*) from
+		<include refid="table" /> h left join monitor m on h.id=m.id
+		where 1=1
+		<include refid="findByPageCriteria" />
+	</select>
+	<select id="findListBySqlCommand" parameterType="SqlQueryCommand" resultMap="MysqlMonitorMap">
+		select h.id,h.host,h.port,h.username,h.password,h.base_dir,h.data_dir,h.server,h.host_name,h.os,h.version,h.encoding,m.name,m.type,m.polling_interval
+		from
+		<include refid="table" /> h left join monitor m on h.id=m.id
+		where 1=1
+        <foreach item="k" index="key" collection="where" >
+           ${k.andOr} ${k.column} ${k.operator} #{k.value}  
+        </foreach>
+        <foreach item="k" index="key" collection="orders" separator="," open=" order by ">
+        	${k.column} ${k.order}
+        </foreach>
+        <if test="limit!=null">
+        	limit #{limit.offset},#{limit.size}
+        </if>
+	</select>
+	<insert id="insert" parameterType="MysqlMonitor" useGeneratedKeys="false" keyProperty="id">
+		INSERT INTO <include refid="table"/>(id,<include refid="columns"/>)
+		VALUES(
+			#{id},
+			#{host},
+			#{port},
+			#{username},
+			#{password},
+			#{baseDir},
+			#{dataDir},
+			#{server},
+			#{hostName},
+			#{os},
+			#{version},
+			#{encoding}	)
+	</insert>
+</mapper>

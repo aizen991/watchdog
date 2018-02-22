@@ -44,6 +44,8 @@ public class MonitorScheduler {
 	private MemcachedChecker memcachedChecker;
 	@Autowired
 	private RedisChecker redisChecker;
+	@Autowired
+	private MysqlChecker mysqlChecker;
 	private ExecutorService threadPool = new ThreadPoolExecutor(20, 30, 10L, TimeUnit.MINUTES, new ArrayBlockingQueue<>(100),new NamedThreadFactory("monitor-scheduler"));
 
 	/**
@@ -148,6 +150,7 @@ public class MonitorScheduler {
 			threadPool.submit(() -> httpChecker.check(interval));
 			threadPool.submit(() -> memcachedChecker.check(interval));
 			threadPool.submit(() -> redisChecker.check(interval));
+			threadPool.submit(() -> mysqlChecker.check(interval));
 		}
 	}
 }

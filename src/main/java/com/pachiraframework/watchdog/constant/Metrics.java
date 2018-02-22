@@ -50,7 +50,9 @@ public class Metrics {
 	public static final class Mysql{
 		private static final String PREFIX = "mysql.";
 		public static final String AVAILABLE = PREFIX+"available";
-		//status
+		public static final String TABLE_LOCK = PREFIX + "table_lock";
+		public static final String QPS = PREFIX + "qps";
+		public static final String TPS = PREFIX + "tps";
 		/**
 		 * 废弃的客户端连接数
 		 */

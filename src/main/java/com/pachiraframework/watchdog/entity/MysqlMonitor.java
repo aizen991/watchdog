@@ -14,8 +14,8 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString(callSuper=true)
-public class MySQLMonitor extends Monitor {
+@ToString(callSuper = true)
+public class MysqlMonitor extends Monitor {
 	private static final long serialVersionUID = 3684121193752640323L;
 	private String host;
 	private Integer port;
@@ -27,7 +27,29 @@ public class MySQLMonitor extends Monitor {
 	private String os;
 	private String version;
 	/**
-	 * 数据库名称
+	 * @see ServerEnum
 	 */
-	private String instance;
+	private String server;
+	private String encoding;
+
+	/**
+	 * 数据库类型
+	 * 
+	 * @author wangxuzheng
+	 *
+	 */
+	public static enum ServerEnum {
+		/**
+		 * master
+		 */
+		MASTER,
+		/**
+		 * slave
+		 */
+		SLAVE,
+		/**
+		 * 独立服务器
+		 */
+		STANDALONE;
+	}
 }

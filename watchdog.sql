@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100113
 File Encoding         : 65001
 
-Date: 2018-02-14 16:18:02
+Date: 2018-02-22 16:54:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -99,11 +99,37 @@ CREATE TABLE `monitor` (
 -- ----------------------------
 -- Records of monitor
 -- ----------------------------
+INSERT INTO `monitor` VALUES ('82', 'mysql localhost', 'MYSQL', '60000', '2018-02-22 11:25:39', '2018-02-22 11:25:42');
 INSERT INTO `monitor` VALUES ('83', 'ping 127.0.0.1', 'PING', '60000', '2018-02-06 16:16:18', '2018-02-06 16:16:18');
 INSERT INTO `monitor` VALUES ('89', 'ping 127.0.0.1', 'TELNET', '60000', '2018-02-12 13:44:32', '2018-02-12 13:44:32');
 INSERT INTO `monitor` VALUES ('93', 'baidu.com', 'HTTP', '60000', '2018-02-12 21:42:04', '2018-02-12 21:42:04');
 INSERT INTO `monitor` VALUES ('94', 'memcache localhost', 'MEMCACHED', '60000', '2018-02-13 14:56:13', '2018-02-13 14:56:16');
 INSERT INTO `monitor` VALUES ('95', 'redis localhost', 'REDIS', '60000', '2018-02-14 15:55:34', '2018-02-14 15:55:37');
+
+-- ----------------------------
+-- Table structure for mysql_monitor
+-- ----------------------------
+DROP TABLE IF EXISTS `mysql_monitor`;
+CREATE TABLE `mysql_monitor` (
+  `id` bigint(20) NOT NULL,
+  `host` varchar(20) NOT NULL COMMENT 'mysql主机地址',
+  `port` int(10) NOT NULL COMMENT '访问端口号',
+  `username` varchar(20) NOT NULL COMMENT '数据库用户名',
+  `password` varchar(50) NOT NULL COMMENT '数据库密码',
+  `base_dir` varchar(50) DEFAULT NULL COMMENT 'mysql主目录地址',
+  `data_dir` varchar(50) DEFAULT NULL COMMENT '数据目录路径',
+  `server` varchar(10) NOT NULL COMMENT '类型，MASTER,SLAVE,STANDALONE',
+  `host_name` varchar(20) DEFAULT NULL COMMENT 'mysql主机名称',
+  `os` varchar(20) DEFAULT NULL COMMENT 'mysql主机操作系统',
+  `version` varchar(60) NOT NULL COMMENT 'mysql服务器版本',
+  `encoding` varchar(10) NOT NULL COMMENT 'mysql服务器版本',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mysql_monitor
+-- ----------------------------
+INSERT INTO `mysql_monitor` VALUES ('82', '127.0.0.1', '3306', 'root', '111111', 'C:\\Program Files\\MariaDB 10.1', 'C:\\Program Files\\MariaDB 10.1\\data', 'STANDALONE', '01AD58697812703', 'windows', '10.1.13-MariaDB mariadb.org binary distribution', 'utf-8');
 
 -- ----------------------------
 -- Table structure for ping_monitor

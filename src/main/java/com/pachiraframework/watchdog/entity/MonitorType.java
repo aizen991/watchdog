@@ -31,7 +31,11 @@ public enum MonitorType {
 	/**
 	* memcached
 	*/
-	MEMCACHED("MEMCACHED", "memcached.png");
+	MEMCACHED("MEMCACHED", "memcached.png"),
+	/**
+	 * MySQL
+	 */
+	MYSQL("MYSQL","mysql.png");
 	private String name;
 	/**
 	 * 图标地址
