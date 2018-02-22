@@ -55,7 +55,7 @@ public class HttpInspector extends AbstractInspector {
 	}
 	private MetricReport responseBodyReport(HttpMonitor httpMonitor,HttpRecord record) {
 		MetricReport report = createTelnetReport(record);
-		report.setMetric(Metrics.HTTP.RESPONSE_BODY);
+		report.setMetric(Metrics.Http.RESPONSE_BODY);
 		report.setStatus(StatusEnum.CLEAR.name());
 		CaseSensitiveEnum caseSensitiveEnum = CaseSensitiveEnum.of(httpMonitor.getCaseSensitive());
 		boolean should = true;
@@ -87,7 +87,7 @@ public class HttpInspector extends AbstractInspector {
 
 	private MetricReport responseTimeReport(HttpRecord record) {
 		MetricReport report = createTelnetReport(record);
-		report.setMetric(Metrics.HTTP.RESPONSE_TIME);
+		report.setMetric(Metrics.Http.RESPONSE_TIME);
 		Long response = record.getResponseTime();
 		if(response >= WARNING_VALUE) {
 			report.setStatus(StatusEnum.WARNING.name());
@@ -113,7 +113,7 @@ public class HttpInspector extends AbstractInspector {
 	 */
 	private MetricReport availableReport(HttpRecord record) {
 		MetricReport available = createTelnetReport(record);
-		available.setMetric(Metrics.HTTP.AVAILABLE);
+		available.setMetric(Metrics.Http.AVAILABLE);
 		available.setMessage(record.getMessage());
 		available.setStatus(HttpStatus.OK.value()== record.getCode().intValue()?StatusEnum.UP.toString():StatusEnum.DOWN.toString());
 		return available;

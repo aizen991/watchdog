@@ -15,7 +15,8 @@ import com.pachiraframework.watchdog.entity.Monitor;
 public abstract class AbstractInspector{
 	/**
 	 * 质量审查
-	 * @param record
+	 * @param monitor 监控器
+	 * @param record 监控记录
 	 * @return
 	 */
 	public abstract List<MetricReport> inspect(Monitor monitor,AbstractRecord record);

@@ -53,7 +53,7 @@ public class PingChecker extends AbstractChecker{
 	@Override
 	protected PingRecord doMonitor(Monitor monitor) {
 		String host = ((PingMonitor)monitor).getHost();
-		PingRecord record = Ping.ping(host);
+		PingRecord record = AbstractPing.ping(host);
 		record.setMoitorId(monitor.getId());
 		record.setTimestamp(new Date());
 		pingRecordDao.insert(record);

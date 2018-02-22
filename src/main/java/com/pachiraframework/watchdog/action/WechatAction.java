@@ -11,7 +11,7 @@ import com.pachiraframework.watchdog.event.event.MetricReportEvent;
  *
  */
 @Component
-public class WechatAction extends LimitedAction {
+public class WechatAction extends AbstractLimitedAction {
 	@Override
 	protected void doExecute(MetricReportEvent context) throws Exception {
 

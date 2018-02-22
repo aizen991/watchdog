@@ -12,7 +12,6 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper=true)
 public class RedisRecord extends AbstractRecord {
-	// Server ;
 	private String redisVersion;
 	private String redisGitSha1;
 	private String redisGitDirty;
@@ -30,12 +29,10 @@ public class RedisRecord extends AbstractRecord {
 	private String hz;
 	private String lruClock;
 	private String configFile;
-	// Clients ;
 	private Integer connectedClients;
 	private Integer clientLongestOutputList;
 	private Integer clientBiggestInputBuf;
 	private Integer blockedClients;
-	// Memory ;
 	private Long usedMemory;
 	private String usedMemoryHuman;
 	private Long usedMemoryRss;
@@ -44,7 +41,6 @@ public class RedisRecord extends AbstractRecord {
 	private Long usedMemoryLua;
 	private String memFragmentationRatio;
 	private String memAllocator;
-	// Persistence ;
 	private Double loading;
 	private String rdbChangesSinceLastSave;
 	private String rdbBgsaveInProgress;
@@ -59,7 +55,6 @@ public class RedisRecord extends AbstractRecord {
 	private String aofCurrentRewriteTimeSec;
 	private String aofLastBgrewriteStatus;
 	private String aofLastWriteStatus;
-	// Stats ;
 	private Integer totalConnectionsReceived;
 	private Integer totalCommandsProcessed;
 	private Integer instantaneousOpsPerSec;
@@ -74,7 +69,6 @@ public class RedisRecord extends AbstractRecord {
 	private Integer pubsubChannels;
 	private Integer pubsubPatterns;
 	private Integer latestForkUsec;
-	// Replication ;
 	private String role;
 	private Integer connectedSlaves;
 	private Integer masterReplOffset;
@@ -82,7 +76,6 @@ public class RedisRecord extends AbstractRecord {
 	private Integer replBacklogSize;
 	private Integer replBacklogFirstByteOffset;
 	private Integer replBacklogBistlen;
-	// CPU ;
 	private Double usedCpuSys;
 	private Double usedCpuUser;
 	private Double usedCpuSysChildren;

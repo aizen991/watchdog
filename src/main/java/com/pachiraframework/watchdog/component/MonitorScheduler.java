@@ -1,7 +1,9 @@
 package com.pachiraframework.watchdog.component;
 
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.pachiraframework.watchdog.constant.ScheduleInterval;
+import com.pachiraframework.watchdog.util.NamedThreadFactory;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,7 +44,7 @@ public class MonitorScheduler {
 	private MemcachedChecker memcachedChecker;
 	@Autowired
 	private RedisChecker redisChecker;
-	private ExecutorService threadPool = Executors.newFixedThreadPool(10);
+	private ExecutorService threadPool = new ThreadPoolExecutor(20, 30, 10L, TimeUnit.MINUTES, new ArrayBlockingQueue<>(100),new NamedThreadFactory("monitor-scheduler"));
 
 	/**
 	 * 一分钟执行一次

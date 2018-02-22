@@ -15,6 +15,10 @@ import com.pachiraframework.watchdog.entity.HttpMonitor.CaseSensitiveEnum;
 import com.pachiraframework.watchdog.entity.HttpMonitor.MethodEnum;
 import com.pachiraframework.watchdog.service.HttpMonitorService;
 
+/**
+ * @author wangxuzheng
+ *
+ */
 public class HttpMonitorServiceImplTest extends WatchdogApplicationTest{
 	@Autowired
 	private HttpMonitorService httpMonitorService;

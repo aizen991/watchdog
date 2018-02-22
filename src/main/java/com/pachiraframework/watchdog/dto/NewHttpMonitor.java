@@ -13,7 +13,10 @@ import lombok.ToString;
 @ToString(callSuper=true)
 public class NewHttpMonitor extends AbstractNewMonitor {
 	private String url;
-	private Integer timeout;//秒
+	/**
+	 * 超时时间，单位秒
+	 */
+	private Integer timeout;
 	private String method;
 	private String requestParams;
 	private String userid;

@@ -1,8 +1,10 @@
 package com.pachiraframework.watchdog.component;
 
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.assertj.core.util.Strings;
 
@@ -15,6 +17,7 @@ import com.pachiraframework.watchdog.entity.MetricReport;
 import com.pachiraframework.watchdog.entity.Monitor;
 import com.pachiraframework.watchdog.event.WatchdogEventBus;
 import com.pachiraframework.watchdog.event.event.MetricReportEvent;
+import com.pachiraframework.watchdog.util.NamedThreadFactory;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public abstract class AbstractChecker {
-	private ExecutorService executorService = Executors.newFixedThreadPool(30);
+	private ExecutorService executorService = new ThreadPoolExecutor(10, 30, 1L, TimeUnit.MINUTES, new ArrayBlockingQueue<>(1000),new NamedThreadFactory(getClass().getSimpleName()));
 	/**
 	 * 批量抓去数据的
 	 */
@@ -69,7 +72,8 @@ public abstract class AbstractChecker {
 	
 	/**
 	 * 检查监控器输出的原始数据，输出指标检查报告，并且把数据持久化到对应的中间件上（如elasticsearch,mysql,mongodb）
-	 * @param record
+	 * @param monitor 监控器对象
+	 * @param record 监控记录
 	 * @return
 	 */
 	protected abstract List<MetricReport> doInspectRecord(Monitor monitor,AbstractRecord record);

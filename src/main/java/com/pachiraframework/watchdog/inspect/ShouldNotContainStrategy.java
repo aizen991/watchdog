@@ -2,7 +2,7 @@ package com.pachiraframework.watchdog.inspect;
 
 import com.google.common.base.Strings;
 
-class ShouldNotContainStrategy extends ContentCheckerStrategy {
+class ShouldNotContainStrategy extends AbstractContentCheckerStrategy {
 	public ShouldNotContainStrategy(String content) {
 		super(content);
 	}

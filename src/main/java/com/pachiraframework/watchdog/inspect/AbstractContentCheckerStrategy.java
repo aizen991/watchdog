@@ -5,10 +5,15 @@ package com.pachiraframework.watchdog.inspect;
  * @author wangxuzheng@aliyun.com
  *
  */
-abstract class ContentCheckerStrategy {
+abstract class AbstractContentCheckerStrategy {
 	protected String content;
-	public ContentCheckerStrategy(String content){
+	public AbstractContentCheckerStrategy(String content){
 		this.content = content;
 	}
+	/**
+	 * 是否匹配
+	 * @param config
+	 * @return
+	 */
 	public abstract boolean match(String config);
 }

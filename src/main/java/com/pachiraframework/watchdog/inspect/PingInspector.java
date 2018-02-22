@@ -53,7 +53,7 @@ public class PingInspector extends AbstractInspector {
 
 	private MetricReport responseTimeReport(PingRecord record) {
 		MetricReport responseTimeReport = createPingReport(record);
-		responseTimeReport.setMetric(Metrics.PING.RESPONSE_TIME);
+		responseTimeReport.setMetric(Metrics.Ping.RESPONSE_TIME);
 		double time = record.getAvg();
 		if (time > 2000) {
 			responseTimeReport.setStatus(StatusEnum.CRITICAL.toString());
@@ -83,7 +83,7 @@ public class PingInspector extends AbstractInspector {
 	 */
 	private MetricReport availableReport(PingRecord record) {
 		MetricReport available = createPingReport(record);
-		available.setMetric(Metrics.PING.AVAILABLE);
+		available.setMetric(Metrics.Ping.AVAILABLE);
 		available.setStatus(record.getSuccess().equals(0) ? StatusEnum.DOWN.toString() : StatusEnum.UP.toString());
 		available.setMessage(record.getMessage() == null ? "成功次数：" + record.getSuccess() : record.getMessage());
 		return available;
@@ -91,7 +91,7 @@ public class PingInspector extends AbstractInspector {
 
 	private MetricReport successRateReport(PingRecord record) {
 		MetricReport successRateReport = createPingReport(record);
-		successRateReport.setMetric(Metrics.PING.SUCCESS_RATE);
+		successRateReport.setMetric(Metrics.Ping.SUCCESS_RATE);
 		// 80%-正常，50%警告，其他正常
 		double successRate = (record.getSuccess() == null ? 0 : record.getSuccess()) / record.getSent();
 		successRateReport.setMessage("Ping成功率：" + successRate * 100 + "%");

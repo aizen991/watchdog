@@ -12,11 +12,11 @@ import com.pachiraframework.watchdog.entity.PingRecord;
 import lombok.Cleanup;
 import lombok.Data;
 
-abstract class Ping {
-	static Ping WINDOWS_PING = new WindowsPing();
-	static Ping LINUX_PING = new LinuxPing();
-	static final Integer PING_TIMES =  10;//ping10次
-	static Ping PING = System.getProperty("os.name").toUpperCase().contains("WINDOWS")?Ping.WINDOWS_PING:Ping.LINUX_PING;
+abstract class AbstractPing {
+	static AbstractPing WINDOWS_PING = new WindowsPing();
+	static AbstractPing LINUX_PING = new LinuxPing();
+	static final Integer PING_TIMES =  10;
+	static AbstractPing PING = System.getProperty("os.name").toUpperCase().contains("WINDOWS")?AbstractPing.WINDOWS_PING:AbstractPing.LINUX_PING;
 	
 	static PingRecord ping(String ip){
 		PingRecord result = new PingRecord();
@@ -46,6 +46,12 @@ abstract class Ping {
 		}
 		return result;
 	}
+	/**
+	 * 执行ping命令，区分不同的操作系统
+	 * @param ip
+	 * @return
+	 * @throws IOException
+	 */
 	abstract PingResult executePing(String ip) throws IOException;
 	
 	/**
@@ -70,7 +76,7 @@ abstract class Ping {
 	 * C:\Users\Administrator>
 	 * 
 	 */
-	static class WindowsPing extends Ping{
+	static class WindowsPing extends AbstractPing{
 		@Override
 		PingResult executePing(String ip) throws IOException {
 			PingResult result = new PingResult();
@@ -122,7 +128,7 @@ abstract class Ping {
 	 * @author wangxuzheng@aliyun.com
 	 *
 	 */
-	static class LinuxPing extends Ping{
+	static class LinuxPing extends AbstractPing{
 		@Override
 		PingResult executePing(String ip) throws IOException {
 			PingResult result = new PingResult();

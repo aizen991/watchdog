@@ -19,7 +19,7 @@ import com.pachiraframework.watchdog.event.event.MetricReportEvent;
  *
  */
 @Component
-public class EmailAction extends LimitedAction {
+public class EmailAction extends AbstractLimitedAction {
 	@Autowired
 	private JavaMailSender javaMailSender;
 

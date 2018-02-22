@@ -19,17 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class Drools {
 	private static Drools drools;
-//	@Autowired
-//	@Setter
-//	private KieBase kieBase;
 	@Autowired
 	private KieContainer kieContainer;
 	public static KieSession newAlarmSession(){
 		log.debug("新建kiession对象");
-//		KieSessionConfiguration configuration = kieContainer.getKieSessionConfiguration();
-//		configuration.setOption(TimedRuleExectionOption.YES);//自动执行timer-rule
-//		KieSession session = kieContainer().newKieSession(configuration);
-//		KieSession session = drools.kieBase.newKieSession();
 		KieSession session = drools.kieContainer.newKieSession("AlarmKS");
 //		session.addEventListener(new TrackingAgendaEventListener());
 //		session.addEventListener(new DebugAgendaEventListener());
@@ -42,7 +35,7 @@ public class Drools {
 				return isWeekdays(time);
 			}
 		};
-		session.getCalendars().set("only-weekdays", onlyWeekDays);//要与drl文件中的定义一致
+		session.getCalendars().set("only-weekdays", onlyWeekDays);
 		
 		//休假时间
 		Calendar notWeekDays = new Calendar() {
@@ -51,12 +44,13 @@ public class Drools {
 				return !isWeekdays(time);
 			}
 		}; 
-		session.getCalendars().set("not-weekdays", notWeekDays);//要与drl文件中的定义一致
+		session.getCalendars().set("not-weekdays", notWeekDays);
 		return session;
 	}
 	private static boolean isWeekdays(long time){
 		DateTime dateTime = new DateTime(time);
-		return dateTime.getDayOfWeek() < 6 && dateTime.getHourOfDay()<=18 && dateTime.getHourOfDay()>=9;//周一到周五
+		//周一到周五
+		return dateTime.getDayOfWeek() < 6 && dateTime.getHourOfDay()<=18 && dateTime.getHourOfDay()>=9;
 	}
 	@PostConstruct
 	public void init(){

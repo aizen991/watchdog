@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Component
 @Slf4j
-public class SmsAction extends LimitedAction {
+public class SmsAction extends AbstractLimitedAction {
 	@Override
 	protected void doExecute(MetricReportEvent context) throws Exception{
 		log.info("对接短信平台发送短信：{}",context);		

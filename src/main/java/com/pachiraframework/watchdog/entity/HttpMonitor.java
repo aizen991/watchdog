@@ -13,11 +13,14 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString(callSuper=true)
+@ToString(callSuper = true)
 public class HttpMonitor extends Monitor {
 	private static final long serialVersionUID = -3642660116581605407L;
 	private String url;
-	private Integer timeout;//秒
+	/**
+	 * 秒
+	 */
+	private Integer timeout;
 	private String method;
 	private String requestParams;
 	private String userid;
@@ -27,17 +30,32 @@ public class HttpMonitor extends Monitor {
 	private String shouldContain;
 	private String shouldNotContain;
 	private String caseSensitive;
-	public static enum MethodEnum{
-		GET,POST,HEAD,PUT,DELETE;
-		public static MethodEnum of(String condition){
+
+	public static enum MethodEnum {
+		/**
+		 * GET方法
+		 */
+		GET,
+		/**
+		 * POST方法
+		 */
+		POST;
+		public static MethodEnum of(String condition) {
 			Optional<MethodEnum> optional = Enums.getIfPresent(MethodEnum.class, condition);
 			return optional.get();
 		}
 	}
-	
-	public static enum CaseSensitiveEnum{
-		YES,NO;
-		public static CaseSensitiveEnum of(String condition){
+
+	public static enum CaseSensitiveEnum {
+		/**
+		 * 大消息敏感
+		 */
+		YES,
+		/**
+		 * 大小写不敏感
+		 */
+		NO;
+		public static CaseSensitiveEnum of(String condition) {
 			Optional<CaseSensitiveEnum> optional = Enums.getIfPresent(CaseSensitiveEnum.class, condition);
 			return optional.get();
 		}

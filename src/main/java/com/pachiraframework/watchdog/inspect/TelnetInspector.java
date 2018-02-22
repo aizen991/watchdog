@@ -56,7 +56,7 @@ public class TelnetInspector extends AbstractInspector {
 	 */
 	private MetricReport availableReport(TelnetRecord record) {
 		MetricReport available = createTelnetReport(record);
-		available.setMetric(Metrics.TELNET.AVAILABLE);
+		available.setMetric(Metrics.Telnet.AVAILABLE);
 		available.setStatus(record.getResponseTime() ==Long.MAX_VALUE ? StatusEnum.DOWN.toString() : StatusEnum.UP.toString());
 		available.setMessage(record.getMessage());
 		return available;

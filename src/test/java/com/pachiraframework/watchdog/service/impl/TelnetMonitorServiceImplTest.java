@@ -13,6 +13,10 @@ import com.pachiraframework.watchdog.dto.NewTelnetMonitor;
 import com.pachiraframework.watchdog.entity.TelnetMonitor;
 import com.pachiraframework.watchdog.service.TelnetMonitorService;
 
+/**
+ * @author wangxuzheng
+ *
+ */
 public class TelnetMonitorServiceImplTest extends WatchdogApplicationTest{
 	@Autowired
 	private TelnetMonitorService telnetMonitorService;

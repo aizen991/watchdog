@@ -6,6 +6,10 @@ import java.util.Properties;
 
 import redis.clients.jedis.Jedis;
 
+/**
+ * @author wangxuzheng
+ *
+ */
 public class RedisCientTest {
 	public static void main(String[] args) throws IOException {
 		Jedis jedis = new Jedis("localhost", 6379);

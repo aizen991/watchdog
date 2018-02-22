@@ -1,6 +1,6 @@
 package com.pachiraframework.watchdog.inspect;
 
-class ShouldContainStrategy extends ContentCheckerStrategy {
+class ShouldContainStrategy extends AbstractContentCheckerStrategy {
 	public ShouldContainStrategy(String content) {
 		super(content);
 	}

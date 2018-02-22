@@ -15,7 +15,7 @@ import lombok.Getter;
  * @author wangxuzheng
  *
  */
-public abstract class LimitedAction extends AbstractAction {
+public abstract class AbstractLimitedAction extends AbstractAction {
 	@Getter
 	private Cache<String, Long> cache = buildCache();
 	protected Cache<String, Long> buildCache(){

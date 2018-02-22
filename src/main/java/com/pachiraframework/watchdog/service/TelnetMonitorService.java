@@ -10,8 +10,8 @@ import com.pachiraframework.watchdog.entity.TelnetMonitor;
  */
 public interface TelnetMonitorService {
 	/**
-	 * 创建新的ping监控器
-	 * @param pingMonitor
+	 * 创建新的telnet监控器
+	 * @param telnetMonitor
 	 * @return
 	 */
 	public ExecuteResult<TelnetMonitor> create(NewTelnetMonitor telnetMonitor);

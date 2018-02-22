@@ -9,5 +9,10 @@ import com.pachiraframework.watchdog.entity.Monitor;
  *
  */
 public interface MonitorService {
+	/**
+	 * 分页查询
+	 * @param pageRequest
+	 * @return
+	 */
 	public Page<Monitor> search(SearchMonitorCriteria pageRequest);
 }

@@ -8,6 +8,7 @@ import lombok.ToString;
 
 /**
  * 监控指标报告
+ * 
  * @author wangxuzheng
  *
  */
@@ -39,7 +40,7 @@ public class MetricReport implements Indexable {
 	 * 要监控的指标
 	 */
 	private String metric;
-	
+
 	/**
 	 * 监控结果UP/DOWN/CLEAR/WARNING/CRITICAL
 	 */
@@ -48,8 +49,27 @@ public class MetricReport implements Indexable {
 	 * 错误消息
 	 */
 	private String message;
-	
-	public static enum StatusEnum{
-		UP,DOWN,CLEAR,WARNING,CRITICAL
+
+	public static enum StatusEnum {
+		/**
+		 * 运行
+		 */
+		UP,
+		/**
+		 * 宕机
+		 */
+		DOWN,
+		/**
+		 * 正常
+		 */
+		CLEAR,
+		/**
+		 * 警告
+		 */
+		WARNING,
+		/**
+		 * 严重
+		 */
+		CRITICAL
 	}
 }

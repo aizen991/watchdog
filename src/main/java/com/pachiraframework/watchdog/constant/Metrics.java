@@ -11,12 +11,12 @@ import com.pachiraframework.watchdog.entity.Metric;
  *
  */
 public class Metrics {
-	private static final Map<String, Metric> metrics = Maps.newLinkedHashMap();
+	private static final Map<String, Metric> METRICS = Maps.newLinkedHashMap();
 	
 	public static Metric getMetric(String id) {
-		return metrics.get(id);
+		return METRICS.get(id);
 	}
-	public static final class PING{
+	public static final class Ping{
 		private static final String PREFIX = "ping.";
 		public static final String AVAILABLE = PREFIX+"available";
 		/**
@@ -34,23 +34,26 @@ public class Metrics {
 //		public static final String TIME_AVG = PREFIX+"time.avg";
 	}
 	
-	public static final class HTTP{
+	public static final class Http{
 		private static final String PREFIX = "http.";
 		public static final String AVAILABLE = PREFIX+"available";
 		public static final String RESPONSE_TIME = PREFIX+"response.time";
 		public static final String RESPONSE_BODY = PREFIX+"response.body";
 	}
 	
-	public static final class TELNET{
+	public static final class Telnet{
 		private static final String PREFIX = "telnet.";
 		public static final String AVAILABLE = PREFIX+"available";
 		public static final String RESPONSE_TIME = PREFIX+"response.time";
 	}
 	
-	public static final class MYSQL{
+	public static final class Mysql{
 		private static final String PREFIX = "mysql.";
 		public static final String AVAILABLE = PREFIX+"available";
 		//status
+		/**
+		 * 废弃的客户端连接数
+		 */
 		public static final String ABORTED_CLIENTS = PREFIX+"status.aborted_clients";
 		public static final String OPENED_TABLES = PREFIX+"status.opened_tables";
 		public static final String QUESTIONS = PREFIX+"status.questions";
@@ -81,12 +84,12 @@ public class Metrics {
 		public static final String AVAILABLE = PREFIX+"available";
 	}
 	
-	public static final class TOMCAT{
+	public static final class Tomcat{
 		private static final String PREFIX = "tomcat.";
 		public static final String AVAILABLE = PREFIX+"available";
 	}
 	
-	public static final class TRACE{
+	public static final class Trace{
 		private static final String PREFIX = "trace.";
 		public static final String AVAILABLE = PREFIX+"available";
 	}

@@ -10,6 +10,11 @@ import org.springframework.context.annotation.Configuration;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Drools规则引擎配置
+ * @author wangxuzheng
+ *
+ */
 @Slf4j
 @Configuration
 public class DroolsConig {

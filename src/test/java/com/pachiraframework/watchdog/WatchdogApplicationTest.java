@@ -5,7 +5,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * Unit test for simple App.
+ * 系统测试用例基类
+ * @author wangxuzheng
+ *
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

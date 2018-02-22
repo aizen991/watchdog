@@ -7,9 +7,9 @@ import com.google.common.base.Strings;
  * @author Administrator
  *
  */
-public class CaseInsensitiveStrategyDecorator extends ContentCheckerStrategy {
-	private ContentCheckerStrategy strategy;
-	public CaseInsensitiveStrategyDecorator(ContentCheckerStrategy strategy) {
+public class CaseInsensitiveStrategyDecorator extends AbstractContentCheckerStrategy {
+	private AbstractContentCheckerStrategy strategy;
+	public CaseInsensitiveStrategyDecorator(AbstractContentCheckerStrategy strategy) {
 		super(strategy.content);
 		this.strategy = strategy;
 	}

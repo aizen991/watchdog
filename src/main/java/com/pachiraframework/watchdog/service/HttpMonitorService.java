@@ -10,8 +10,8 @@ import com.pachiraframework.watchdog.entity.HttpMonitor;
  */
 public interface HttpMonitorService {
 	/**
-	 * 创建新的ping监控器
-	 * @param pingMonitor
+	 * 创建新的http监控器
+	 * @param newHttpMonitor
 	 * @return
 	 */
 	public ExecuteResult<HttpMonitor> create(NewHttpMonitor newHttpMonitor);

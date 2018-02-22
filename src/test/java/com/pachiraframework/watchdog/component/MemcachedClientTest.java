@@ -11,6 +11,10 @@ import com.pachiraframework.watchdog.entity.MemcachedRecord;
 
 import net.spy.memcached.MemcachedClient;
 
+/**
+ * @author wangxuzheng
+ *
+ */
 public class MemcachedClientTest {
 	public static void main(String[] args) throws IOException {
 		MemcachedClient client = new MemcachedClient(new InetSocketAddress("localhost", 11211));

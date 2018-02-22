@@ -37,6 +37,11 @@ public abstract class AbstractAction{
 		}
 	}
 	
+	/**
+	 * 对检查后的结果，需要做何处理逻辑
+	 * @param context
+	 * @throws Exception
+	 */
 	protected abstract void doExecute(MetricReportEvent context)throws Exception;
 	
 	/**
