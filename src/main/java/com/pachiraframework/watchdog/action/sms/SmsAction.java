@@ -1,7 +1,8 @@
-package com.pachiraframework.watchdog.action;
+package com.pachiraframework.watchdog.action.sms;
 
 import org.springframework.stereotype.Component;
 
+import com.pachiraframework.watchdog.action.AbstractLimitedAction;
 import com.pachiraframework.watchdog.event.event.MetricReportEvent;
 
 import lombok.extern.slf4j.Slf4j;

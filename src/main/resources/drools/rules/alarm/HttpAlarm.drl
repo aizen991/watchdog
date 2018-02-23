@@ -1,9 +1,9 @@
 package drools.rules.alarm;
 
 import com.pachiraframework.watchdog.event.event.MetricReportEvent;
-import com.pachiraframework.watchdog.action.ConsoleAction;
-import com.pachiraframework.watchdog.action.SmsAction;
-import com.pachiraframework.watchdog.action.EmailAction;
+import com.pachiraframework.watchdog.action.console.ConsoleAction;
+import com.pachiraframework.watchdog.action.sms.SmsAction;
+import com.pachiraframework.watchdog.action.email.EmailAction;
 
 global com.pachiraframework.watchdog.util.SpringContext spring;
 

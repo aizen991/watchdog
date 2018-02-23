@@ -1,4 +1,4 @@
-package com.pachiraframework.watchdog.action;
+package com.pachiraframework.watchdog.action.email;
 
 import java.io.StringWriter;
 
@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 
+import com.pachiraframework.watchdog.action.AbstractLimitedAction;
 import com.pachiraframework.watchdog.event.event.MetricReportEvent;
 
 /**
