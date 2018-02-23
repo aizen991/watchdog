@@ -1,24 +1,16 @@
 package com.pachiraframework.watchdog.action.jira;
 
 import java.io.StringWriter;
-import java.net.URI;
+import java.io.Writer;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.atlassian.jira.rest.client.api.JiraRestClient;
-import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
-import com.atlassian.jira.rest.client.api.domain.BasicIssue;
-import com.atlassian.jira.rest.client.api.domain.input.IssueInput;
-import com.atlassian.jira.rest.client.api.domain.input.IssueInputBuilder;
-import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
+import com.google.gson.stream.JsonWriter;
 import com.pachiraframework.watchdog.action.AbstractLimitedAction;
-import com.pachiraframework.watchdog.entity.MonitorType;
 import com.pachiraframework.watchdog.event.event.MetricReportEvent;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -30,32 +22,48 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class JiraAction extends AbstractLimitedAction implements InitializingBean {
-//	@Value("${jira.user}")
-//	private String user;
-//	@Value("${jira.password}")
-//	private String password;
-//	@Value("${jira.url}")
-//	private String url;
-//	@Value("${jira.bug.id}")
-//	private Long typeId;
-//	private JiraRestClient jiraRestClient;
+	@Value("${jira.user?:null}")
+	private String user;
+	@Value("${jira.password?:null}")
+	private String password;
+	@Value("${jira.url?:null}")
+	private String url;
+	@Value("${jira.bugId?:1}")
+	private Long typeId;
+	private JiraClient jiraClient;
 
 	@Override
 	protected void doExecute(MetricReportEvent context) throws Exception {
 		log.info("jira action");
-//		IssueInputBuilder issueBuilder = new IssueInputBuilder();
-//		issueBuilder.setProjectKey("");
-//		// BUG
-//		issueBuilder.setIssueTypeId(this.typeId);
-//		StringWriter out = new StringWriter();
-//		getTemplate(context).process(context, out);
-//		String content = out.toString();
-//		issueBuilder.setDescription(content);
-//		issueBuilder.setSummary("(" + context.getMonitor().getType() + ")" + context.getMonitor().getName());
-//		issueBuilder.setAssigneeName(this.user);//分配给负责人
-//		IssueInput issueInput = issueBuilder.build();
-//		BasicIssue issue = jiraRestClient.getIssueClient().createIssue(issueInput).claim();
-//		log.info("告警信息【{}】已经创建jira BUG:{}",context.getMonitor().getId(),issue.getKey());
+		StringWriter out = new StringWriter();
+		getTemplate(context).process(context, out);
+		String description = out.toString();
+		Writer writer = new StringWriter();
+		JsonWriter jsonWriter = new JsonWriter(writer);
+		jsonWriter.beginObject()
+			.name("fields").beginObject()
+				.name("summary").value("something'\\''s wrong")
+				.name("environment").value("environment")
+				.name("description").value(description)
+				.name("duedate").value("2011-03-11")
+				.name("project").beginObject()
+					.name("id").value("10000")
+				.endObject()
+				.name("issuetype").beginObject()
+					.name("id").value("5555")
+				.endObject()
+				.name("assignee").beginObject()
+					.name("name").value("homer")
+				.endObject()
+				.name("priority").beginObject()
+					.name("id").value("20000")
+				.endObject()
+			.endObject();
+		jsonWriter.close();
+		String data = writer.toString();
+		log.info("{}",data);
+		String result = jiraClient.createIssue(data);
+		log.info(result);
 	}
 
 	@Override
@@ -65,17 +73,7 @@ public class JiraAction extends AbstractLimitedAction implements InitializingBea
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-//		JiraRestClientFactory factory = new AsynchronousJiraRestClientFactory();
-//		URI jiraServerUri = new URI(this.url);
-//		this.jiraRestClient = factory.createWithBasicHttpAuthentication(jiraServerUri, this.user, this.password);
+		jiraClient = new JiraClient(url, user, password);
 	}
 
-	@AllArgsConstructor
-	@Getter
-	private static enum IssueTypeEnum {
-		Epic(10200L), Task(3L), Test(10101L), Improvement(10400L), Bug(10300L), SubRequirement(10401L), SubTask(
-				10300L), Story(10100L);
-
-		private Long id;
-	}
 }
