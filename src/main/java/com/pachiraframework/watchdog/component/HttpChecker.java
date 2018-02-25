@@ -53,7 +53,7 @@ public class HttpChecker extends AbstractChecker {
 		Stopwatch stopwatch = Stopwatch.createStarted();
 		HttpRecord record = new HttpRecord();
 		record.setTimestamp(new Date());
-		record.setMoitorId(monitor.getId());
+		record.setMonitorId(monitor.getId());
 		HttpRequest httpRequest = null;
 		try{
 			if(MethodEnum.GET.equals(MethodEnum.of(httpUrlMonitor.getMethod()))){

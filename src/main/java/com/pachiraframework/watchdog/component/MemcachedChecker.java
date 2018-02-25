@@ -53,7 +53,7 @@ public class MemcachedChecker extends AbstractChecker {
 		}catch(Exception e) {
 			MemcachedRecord record = new MemcachedRecord();
 			record.setTimestamp(new Date());
-			record.setMoitorId(monitor.getId());
+			record.setMonitorId(monitor.getId());
 			record.setMessage(Throwables.getStackTraceAsString(e));
 			memcachedRecordDao.insert(record);
 			log.info("monitor.memcached.record.insert.success:插入es成功:{}",record.getId());
@@ -62,7 +62,7 @@ public class MemcachedChecker extends AbstractChecker {
 		
 		for(Entry<SocketAddress, Map<String, String>> entry : statMap.entrySet()) {
 			MemcachedRecord record = new MemcachedRecord();
-			record.setMoitorId(monitor.getId());
+			record.setMonitorId(monitor.getId());
 			record.setTimestamp(new Date());
 			Map<String, String> stats = entry.getValue();
 			record.setAcceptingConns(intValue(stats.get("accepting_conns")));

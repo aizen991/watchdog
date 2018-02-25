@@ -23,7 +23,7 @@ public abstract class AbstractInspector{
 	
 	protected MetricReport createReport(AbstractRecord record) {
 		MetricReport report = new MetricReport();
-		report.setMoitorId(record.getMoitorId());
+		report.setMoitorId(record.getMonitorId());
 		report.setRecordId(record.getId());
 		report.setTimestamp(new Date());
 		return report;

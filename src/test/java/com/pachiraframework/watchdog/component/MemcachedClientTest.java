@@ -21,7 +21,7 @@ public class MemcachedClientTest {
 		Map<SocketAddress, Map<String, String>> statMap = client.getStats();
 		for(Entry<SocketAddress, Map<String, String>> entry : statMap.entrySet()) {
 			MemcachedRecord record = new MemcachedRecord();
-			record.setMoitorId(12L);
+			record.setMonitorId(12L);
 			record.setTimestamp(new Date());
 			Map<String, String> stats = entry.getValue();
 			record.setAcceptingConns(Integer.valueOf(stats.get("accepting_conns")));

@@ -55,7 +55,7 @@ public class RedisChecker extends AbstractChecker {
 		}catch(Exception e) {
 			RedisRecord record = new RedisRecord();
 			record.setTimestamp(new Date());
-			record.setMoitorId(monitor.getId());
+			record.setMonitorId(monitor.getId());
 			record.setMessage(Throwables.getStackTraceAsString(e));
 			redisRecordDao.insert(record);
 			log.info("monitor.redis.record.insert.success:插入es成功:{}",record.getId());
@@ -65,7 +65,7 @@ public class RedisChecker extends AbstractChecker {
 	
 	private RedisRecord buildRedisRecord(Properties properties,RedisMonitor monitor) {
 		RedisRecord record = new RedisRecord();
-		record.setMoitorId(monitor.getId());
+		record.setMonitorId(monitor.getId());
 		record.setTimestamp(new Date());
 		record.setAofCurrentRewriteTimeSec(properties.getProperty("aof_current_rewrite_time_sec"));
 		record.setAofEnabled(intValue(properties.getProperty("aof_enabled")));

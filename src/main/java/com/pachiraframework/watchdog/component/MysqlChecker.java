@@ -53,7 +53,7 @@ public class MysqlChecker extends AbstractChecker {
 	protected MysqlRecord doMonitor(Monitor m) {
 		MysqlMonitor monitor = (MysqlMonitor) m;
 		MysqlRecord record = new MysqlRecord();
-		record.setMoitorId(monitor.getId());
+		record.setMonitorId(monitor.getId());
 		record.setTimestamp(new Date());
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		if (!Strings.isNullOrEmpty(monitor.getUsername())) {

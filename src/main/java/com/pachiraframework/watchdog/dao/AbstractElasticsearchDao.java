@@ -1,5 +1,6 @@
 package com.pachiraframework.watchdog.dao;
 
+import java.beans.PropertyDescriptor;
 import java.util.List;
 
 import org.elasticsearch.action.bulk.BulkItemResponse;
@@ -7,14 +8,16 @@ import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.pachiraframework.watchdog.entity.Indexable;
 
 import lombok.Getter;
+import lombok.SneakyThrows;
 
 /**
  * @author wangxuzheng
@@ -25,7 +28,7 @@ public abstract class AbstractElasticsearchDao {
 	@Getter
 	@Autowired
 	private TransportClient transportClient;
-	
+
 	private String indexNameType() {
 		return INDEX_PREFIX + index();
 	}
@@ -37,13 +40,12 @@ public abstract class AbstractElasticsearchDao {
 	 */
 	protected abstract String index();
 
-	public void insert(Indexable pingRecord) {
-		Gson gson = createGson();
-		String json = gson.toJson(pingRecord);
+	public void insert(Indexable indexAble) {
+		String json = bean2Json(indexAble);
 		IndexResponse response = transportClient.prepareIndex(indexNameType(), indexNameType())
 				.setSource(json, XContentType.JSON).get();
 		String id = response.getId();
-		pingRecord.setId(id);
+		indexAble.setId(id);
 	}
 
 	/**
@@ -52,11 +54,11 @@ public abstract class AbstractElasticsearchDao {
 	 * @param reports
 	 */
 	public void batchInsert(List<? extends Indexable> reports) {
-		Gson gson = createGson();
 		BulkRequestBuilder bulkRequest = transportClient.prepareBulk();
 		for (Indexable report : reports) {
-			String json = gson.toJson(report);
-			bulkRequest.add(transportClient.prepareIndex(indexNameType(), indexNameType()).setSource(json, XContentType.JSON));
+			String json = bean2Json(report);
+			bulkRequest.add(
+					transportClient.prepareIndex(indexNameType(), indexNameType()).setSource(json, XContentType.JSON));
 		}
 		BulkResponse response = bulkRequest.execute().actionGet();
 		BulkItemResponse[] items = response.getItems();
@@ -67,8 +69,18 @@ public abstract class AbstractElasticsearchDao {
 		}
 	}
 
-	protected Gson createGson() {
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").create();   
-		return gson;
+	@SneakyThrows
+	protected String bean2Json(Object indexAble) {
+		XContentBuilder builder = XContentFactory.jsonBuilder();
+		builder.startObject();
+		PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(indexAble.getClass());
+		for (PropertyDescriptor descriptor : propertyDescriptors) {
+			if (!descriptor.getName().equals("class")) {
+				builder.field(descriptor.getName(), descriptor.getReadMethod().invoke(indexAble));
+			}
+		}
+		builder.endObject();
+		String json = builder.string();
+		return json;
 	}
 }

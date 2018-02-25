@@ -1,16 +1,42 @@
 == 项目信息
 * 基于spring boot
 * jdk1.8
+* 基于Elasticsearch6.2.2存储监控数据
 * 使用Swagger2作为rest 自动API文档自动生成
 * 通过界面添加监控器
 * 支持多种监控器
 * >Ping监控 :Ping的服务器通不通，是否超时
 * >Telnet监控:监控制定服务器端口是否正常
 * >Url监控：支持get/post方式访问制定http(s)地址，自定义header,返回内容匹配（包含、不包含、等于），返回状态匹配
+* >Memcached监控
+* >Redis监控
+* >MySQL监控
 * 使用elasticsearch6存储监控结果数据
 * 使用mysql存储任务监控器基础数据和配置数据
 
+== 启动相关中间件
+* Elasticsearch6.2.2 下载地址：https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.2.zip
+** PUT http://127.0.0.1:9200/watchdog_metric_report/_mapping/watchdog_metric_report
+** {
+  "properties": {
+    "status": { 
+      "type":"text",
+      "fielddata": true
+    },
+	"metric": { 
+	  "type":"text",
+      "fielddata": true
+    },
+	"type": { 
+	  "type":"text",
+      "fielddata": true
+    }
+  }
+}
+* 启用MySQL数据库
+
 == 本地运行项目
 * 新建数据库watchdog，并将watchdog.sql脚本导入到数据库中
+* 修改项目中application.properties中的配置项（数据库，elasticsearch）
 * 运行项目WatchdogApplication
 * 查看项目的API http://localhost:8080/swagger-ui.html
