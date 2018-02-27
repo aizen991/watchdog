@@ -1,4 +1,3 @@
-*.jar
 *.war
 *~
 *.class
@@ -22,4 +21,3 @@ aixforce-search/data
 db/
 *.versionsBackup
 .svn/
-
