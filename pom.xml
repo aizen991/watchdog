@@ -69,6 +69,8 @@
 			<groupId>com.pachiraframework</groupId>
 			<artifactId>pachiraframework-core</artifactId>
 			<version>0.2.10</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/pachiraframework-core-0.2.10.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.elasticsearch.client</groupId>
