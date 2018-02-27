@@ -15,9 +15,3 @@ target/
 .metadata/
 .idea/
 logs/
-dependency-reduced-pom.xml
-aixforce-search/data
-*.rdb
-db/
-*.versionsBackup
-.svn/
