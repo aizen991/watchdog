@@ -45,7 +45,7 @@ public class HttpMonitorServiceImpl implements HttpMonitorService {
 
 			Monitor monitor = new Monitor();
 			monitor.setName(newHttpMonitor.getName());
-			monitor.setPollingInterval(newHttpMonitor.getPollingInterval());
+			monitor.setSchedulerId(newHttpMonitor.getSchedulerId());
 			monitor.setType(MonitorType.HTTP.getName());
 			monitorDao.insert(monitor);
 

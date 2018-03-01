@@ -44,7 +44,7 @@ public class TelnetMonitorServiceImpl implements TelnetMonitorService {
 
 			Monitor monitor = new Monitor();
 			monitor.setName(newTelnetMonitor.getName());
-			monitor.setPollingInterval(newTelnetMonitor.getPollingInterval());
+			monitor.setSchedulerId(newTelnetMonitor.getSchedulerId());
 			monitor.setType(MonitorType.TELNET.getName());
 			monitorDao.insert(monitor);
 

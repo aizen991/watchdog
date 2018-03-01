@@ -55,6 +55,7 @@ public class MysqlChecker extends AbstractChecker {
 		MysqlRecord record = new MysqlRecord();
 		record.setMonitorId(monitor.getId());
 		record.setTimestamp(new Date());
+		record.setHost(monitor.getHost());
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		if (!Strings.isNullOrEmpty(monitor.getUsername())) {
 			dataSource.setUsername(monitor.getUsername());

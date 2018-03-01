@@ -21,7 +21,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-5">超时：${monitor.timeout}</div>
-					<div class="col-md-5">间隔：${monitor.pollingInterval}</div>
+					<div class="col-md-5">调度器：${monitor.schedulerId}</div>
 				</div>
 			</div>
 		</div>

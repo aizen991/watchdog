@@ -15,7 +15,7 @@
 		<result property="encoding" column="encoding" />
 		<result property="name" column="name" />
 		<result property="type" column="type" />
-		<result property="pollingInterval" column="polling_interval" />
+		<result property="schedulerId" column="scheduler_id" />
 	</resultMap>
 	<sql id="table">mysql_monitor</sql>
 	<sql id="columns">host,port,username,password,base_dir,data_dir,server,host_name,os,version,encoding</sql>
@@ -28,12 +28,12 @@
 		</if>
 	</sql> 	<!-- 分页查询模版普通信息 -->
 	<sql id="findByPageCriteria">
-		<if test="params.interval!=null">
-			and `polling_interval` =#{params.interval}	
+		<if test="params.schedulerId!=null">
+			and `scheduler_id` =#{params.schedulerId}	
 		</if>
 	</sql>
 	<select id="findByPage" parameterType="PageRequest" resultMap="MysqlMonitorMap">
-		select h.id,h.host,h.port,h.username,h.password,h.base_dir,h.data_dir,h.server,h.host_name,h.os,h.version,h.encoding,m.name,m.type,m.polling_interval
+		select h.id,h.host,h.port,h.username,h.password,h.base_dir,h.data_dir,h.server,h.host_name,h.os,h.version,h.encoding,m.name,m.type,m.scheduler_id
 		from
 		<include refid="table" /> h left join monitor m on h.id=m.id
 		where 1=1
@@ -48,7 +48,7 @@
 		<include refid="findByPageCriteria" />
 	</select>
 	<select id="findListBySqlCommand" parameterType="SqlQueryCommand" resultMap="MysqlMonitorMap">
-		select h.id,h.host,h.port,h.username,h.password,h.base_dir,h.data_dir,h.server,h.host_name,h.os,h.version,h.encoding,m.name,m.type,m.polling_interval
+		select h.id,h.host,h.port,h.username,h.password,h.base_dir,h.data_dir,h.server,h.host_name,h.os,h.version,h.encoding,m.name,m.type,m.scheduler_id
 		from
 		<include refid="table" /> h left join monitor m on h.id=m.id
 		where 1=1

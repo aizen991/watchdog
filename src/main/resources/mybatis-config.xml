@@ -8,6 +8,8 @@
         <typeAlias alias="SqlQueryCommand" type="com.pachiraframework.dao.support.SqlQueryCommand"/>
         <typeAlias alias="SqlUpdateCommand" type="com.pachiraframework.dao.support.SqlUpdateCommand"/>
         <typeAlias alias="SqlDeleteCommand" type="com.pachiraframework.dao.support.SqlDeleteCommand"/>
+        
+        <typeAlias alias="Scheduler" type="com.pachiraframework.watchdog.entity.Scheduler"/>
 	
 		<typeAlias alias="Monitor" type="com.pachiraframework.watchdog.entity.Monitor"/>
 		<typeAlias alias="PingMonitor" type="com.pachiraframework.watchdog.entity.PingMonitor"/>
@@ -21,6 +23,8 @@
 		<typeHandler handler="com.pachiraframework.dao.IdHandler" />
 	</typeHandlers>
     <mappers>
+    	<mapper resource="mappers/SchedulerMapper.xml"/>
+    	
         <mapper resource="mappers/MonitorMapper.xml"/>
         <mapper resource="mappers/PingMonitorMapper.xml"/>
         <mapper resource="mappers/TelnetMonitorMapper.xml"/>

@@ -6,7 +6,7 @@
 		<result property="port" column="port" />
 		<result property="name" column="name" />
 		<result property="type" column="type" />
-		<result property="pollingInterval" column="polling_interval" />
+		<result property="schedulerId" column="scheduler_id" />
 	</resultMap>
 	<sql id="table">memcached_monitor</sql>
 	<sql id="columns">host,port</sql>
@@ -19,12 +19,12 @@
 		</if>
 	</sql> 	<!-- 分页查询模版普通信息 -->
 	<sql id="findByPageCriteria">
-		<if test="params.interval!=null">
-			and `polling_interval` =#{params.interval}	
+		<if test="params.schedulerId!=null">
+			and `scheduler_id` =#{params.schedulerId}	
 		</if>
 	</sql>
 	<select id="findByPage" parameterType="PageRequest" resultMap="MemcachedMonitorMap">
-		select h.id,h.host,h.port,m.name,m.type,m.polling_interval
+		select h.id,h.host,h.port,m.name,m.type,m.scheduler_id
 		from
 		<include refid="table" /> h left join monitor m on h.id=m.id
 		where 1=1
@@ -39,7 +39,7 @@
 		<include refid="findByPageCriteria" />
 	</select>
 	<select id="findListBySqlCommand" parameterType="SqlQueryCommand" resultMap="MemcachedMonitorMap">
-		select h.id,h.host,h.port,m.name,m.type,m.polling_interval
+		select h.id,h.host,h.port,m.name,m.type,m.scheduler_id
 		from
 		<include refid="table" /> h left join monitor m on h.id=m.id
 		where 1=1

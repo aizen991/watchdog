@@ -12,6 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper=true)
 public class MysqlRecord extends AbstractRecord {
+	private String host;
 	/**
 	 * 当前打开的连接的数量。
 	 */

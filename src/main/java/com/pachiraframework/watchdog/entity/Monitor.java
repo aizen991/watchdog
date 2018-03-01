@@ -24,6 +24,6 @@ public class Monitor extends BaseEntity<Long> {
 	 * 监控器类型
 	 */
 	private String type;
-	private Long pollingInterval;
+	private Long schedulerId;
 //	private List<MonitorGroup> grops;
 }

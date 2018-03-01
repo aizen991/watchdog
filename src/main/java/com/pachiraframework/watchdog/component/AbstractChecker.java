@@ -35,16 +35,16 @@ public abstract class AbstractChecker {
 	protected static final Integer BATCH_FETCH_SIZE = 20;
 	/**
 	 * 执行检查
-	 * @param interval 检查的间隔
+	 * @param schedulerId 调度器id
 	 */
-	public void check(Integer interval) {
+	public void check(Long schedulerId) {
 		int startPage = 0;
 		WrappedPageRequest pageRequest = new WrappedPageRequest(new PageRequest(startPage, BATCH_FETCH_SIZE));
-		pageRequest.addParam("interval", interval);
+		pageRequest.addParam("schedulerId", schedulerId);
 		Page<Monitor> page = loadBatch(pageRequest);
 		while (!page.getContent().isEmpty()) {
 			log.info("开始处理Monitor批次,startPage={},batchSize={},size={},interval={}", startPage, BATCH_FETCH_SIZE,
-					page.getContent().size(),interval);
+					page.getContent().size(),schedulerId);
 			for (Monitor monitor : page.getContent()) {
 				executorService.submit(()->{
 					log.info("检查monitor-id:{},name:{}",monitor.getId(),monitor.getName());

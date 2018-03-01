@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pachiraframework.watchdog.dao.MonitorDao">
-	<resultMap id="MonitorMap" type="Monitor">
+<mapper namespace="com.pachiraframework.watchdog.dao.SchedulerDao">
+	<resultMap id="SchedulerMap" type="Scheduler">
 		<id property="id" column="id" />
 		<result property="name" column="name" />
-		<result property="type" column="type" />
-		<result property="schedulerId" column="scheduler_id" />
-		<result property="createdAt" column="created_at" />
-		<result property="updatedAt" column="updated_at" />
+		<result property="cron" column="cron" />
+		<result property="description" column="description" />
 	</resultMap>
-	<sql id="table">monitor</sql>
-	<sql id="columns">name,type,scheduler_id,created_at,updated_at</sql>
+	<sql id="table">scheduler</sql>
+	<sql id="columns">name,cron,description</sql>
 	<sql id="limit"> limit #{pageRequest.offset},#{pageRequest.size} 	</sql>
 	<sql id="orderBy">
 		<if test="pageRequest.orders.size() > 0">
@@ -22,12 +20,9 @@
 		<if test="params.name!=null and params.name !=''">
 			and m.name like CONCAT('%',#{pageRequest.name},'%' ) 
 		</if>
-		<if test="params.type!=null and params.type !=''">
-			and m.type =#{pageRequest.type}	
-		</if>
 	</sql>
-	<select id="findByPage" parameterType="PageRequest" resultMap="MonitorMap">
-		select m.id,m.name,m.type,m.scheduler_id,m.created_at,m.updated_at
+	<select id="findByPage" parameterType="PageRequest" resultMap="SchedulerMap">
+		select m.id,m.name,m.cron,m.description
 		from
 		<include refid="table" /> m 
 		where 1=1
@@ -42,8 +37,8 @@
 		where 1=1
 		<include refid="findByPageCriteria" />
 	</select>
-	<select id="findListBySqlCommand" parameterType="SqlQueryCommand" resultMap="MonitorMap">
-		select m.id,m.name,m.type_id,m.scheduler_id,m.created_at,m.updated_at
+	<select id="findListBySqlCommand" parameterType="SqlQueryCommand" resultMap="SchedulerMap">
+		select m.id,m.name,m.cron,m.description
 		from
 		<include refid="table" /> m  
 		where 1=1
@@ -57,13 +52,11 @@
         	limit #{limit.offset},#{limit.size}
         </if>
 	</select>
-	<insert id="insert" parameterType="Monitor" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="Scheduler" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO <include refid="table"/>(<include refid="columns"/>)
 		VALUES(
 			#{name},
-			#{type},
-			#{schedulerId},
-			now(),
-			now()	)
+			#{cron},
+			#{description}	)
 	</insert>
 </mapper>

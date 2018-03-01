@@ -15,7 +15,7 @@
 		<result property="caseSensitive" column="case_sensitive" />
 		<result property="name" column="name" />
 		<result property="type" column="type" />
-		<result property="pollingInterval" column="polling_interval" />
+		<result property="schedulerId" column="scheduler_id" />
 	</resultMap>
 	<sql id="table">http_monitor</sql>
 	<sql id="columns">url,timeout,method,request_params,userid,password,user_agent,http_header,should_contain,should_not_contain,case_sensitive</sql>
@@ -28,14 +28,14 @@
 		</if>
 	</sql> 	<!-- 分页查询模版普通信息 -->
 	<sql id="findByPageCriteria">
-		<if test="params.appId!=null and params.appId !=''">
-			and `app_id` =#{params.appId}	
+		<if test="params.schedulerId!=null">
+			and `scheduler_id` =#{params.schedulerId}	
 		</if>
 	</sql>
 	<select id="findByPage" parameterType="PageRequest" resultMap="HttpMonitorMap">
 		select h.id,h.url,h.timeout,h.method,h.request_params,h.userid,h.password,h.user_agent,
 		h.http_header,h.should_contain,h.should_not_contain,h.case_sensitive,
-		m.name,m.type,m.polling_interval
+		m.name,m.type,m.scheduler_id
 		from
 		<include refid="table" /> h left join monitor m on h.id=m.id
 		where 1=1
@@ -52,7 +52,7 @@
 	<select id="findListBySqlCommand" parameterType="SqlQueryCommand" resultMap="HttpMonitorMap">
 		select h.id,h.url,h.timeout,h.method,h.request_params,h.userid,h.password,h.user_agent,
 		h.http_header,h.should_contain,h.should_not_contain,h.case_sensitive,
-		m.name,m.type,m.polling_interval
+		m.name,m.type,m.scheduler_id
 		from
 		<include refid="table" /> h left join monitor m on h.id=m.id
 		where 1=1

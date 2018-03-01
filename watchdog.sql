@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100113
 File Encoding         : 65001
 
-Date: 2018-02-22 16:54:37
+Date: 2018-03-01 12:20:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -90,21 +90,23 @@ CREATE TABLE `monitor` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `type` varchar(20) NOT NULL COMMENT '监控器类型，可选值HTTP,PING,',
-  `polling_interval` int(10) NOT NULL,
+  `scheduler_id` int(10) NOT NULL COMMENT '调度器ID',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of monitor
 -- ----------------------------
-INSERT INTO `monitor` VALUES ('82', 'mysql localhost', 'MYSQL', '60000', '2018-02-22 11:25:39', '2018-02-22 11:25:42');
-INSERT INTO `monitor` VALUES ('83', 'ping 127.0.0.1', 'PING', '60000', '2018-02-06 16:16:18', '2018-02-06 16:16:18');
-INSERT INTO `monitor` VALUES ('89', 'ping 127.0.0.1', 'TELNET', '60000', '2018-02-12 13:44:32', '2018-02-12 13:44:32');
-INSERT INTO `monitor` VALUES ('93', 'baidu.com', 'HTTP', '60000', '2018-02-12 21:42:04', '2018-02-12 21:42:04');
-INSERT INTO `monitor` VALUES ('94', 'memcache localhost', 'MEMCACHED', '60000', '2018-02-13 14:56:13', '2018-02-13 14:56:16');
-INSERT INTO `monitor` VALUES ('95', 'redis localhost', 'REDIS', '60000', '2018-02-14 15:55:34', '2018-02-14 15:55:37');
+INSERT INTO `monitor` VALUES ('81', 'mysql 10.1.132.185', 'MYSQL', '1', '2018-02-28 12:24:21', '2018-02-28 12:24:24');
+INSERT INTO `monitor` VALUES ('82', 'mysql localhost', 'MYSQL', '1', '2018-02-22 11:25:39', '2018-02-22 11:25:42');
+INSERT INTO `monitor` VALUES ('83', 'ping 127.0.0.1', 'PING', '1', '2018-02-06 16:16:18', '2018-02-06 16:16:18');
+INSERT INTO `monitor` VALUES ('89', 'ping 127.0.0.1', 'TELNET', '1', '2018-02-12 13:44:32', '2018-02-12 13:44:32');
+INSERT INTO `monitor` VALUES ('93', 'baidu.com', 'HTTP', '1', '2018-02-12 21:42:04', '2018-02-12 21:42:04');
+INSERT INTO `monitor` VALUES ('94', 'memcache localhost', 'MEMCACHED', '1', '2018-02-13 14:56:13', '2018-02-13 14:56:16');
+INSERT INTO `monitor` VALUES ('95', 'redis localhost', 'REDIS', '1', '2018-02-14 15:55:34', '2018-02-14 15:55:37');
+INSERT INTO `monitor` VALUES ('96', 'telnet 127.0.0.1:3306', 'TELNET', '1', '2018-02-28 18:43:29', '2018-02-28 18:43:29');
 
 -- ----------------------------
 -- Table structure for mysql_monitor
@@ -129,6 +131,7 @@ CREATE TABLE `mysql_monitor` (
 -- ----------------------------
 -- Records of mysql_monitor
 -- ----------------------------
+INSERT INTO `mysql_monitor` VALUES ('81', '10.1.132.28', '3306', 'dev', 'v3@rrs.com', 'C:\\Program Files\\MariaDB 10.1', 'C:\\Program Files\\MariaDB 10.1\\data', 'STANDALONE', '01AD58697812703', 'linux', '10.1.13-MariaDB mariadb.org binary distribution', 'utf-8');
 INSERT INTO `mysql_monitor` VALUES ('82', '127.0.0.1', '3306', 'root', '111111', 'C:\\Program Files\\MariaDB 10.1', 'C:\\Program Files\\MariaDB 10.1\\data', 'STANDALONE', '01AD58697812703', 'windows', '10.1.13-MariaDB mariadb.org binary distribution', 'utf-8');
 
 -- ----------------------------
@@ -145,7 +148,7 @@ CREATE TABLE `ping_monitor` (
 -- ----------------------------
 -- Records of ping_monitor
 -- ----------------------------
-INSERT INTO `ping_monitor` VALUES ('83', '127.0.0.1', '50');
+INSERT INTO `ping_monitor` VALUES ('83', 'grafana.com', '50');
 
 -- ----------------------------
 -- Table structure for redis_monitor
@@ -164,6 +167,24 @@ CREATE TABLE `redis_monitor` (
 INSERT INTO `redis_monitor` VALUES ('95', '127.0.0.1', '6379');
 
 -- ----------------------------
+-- Table structure for scheduler
+-- ----------------------------
+DROP TABLE IF EXISTS `scheduler`;
+CREATE TABLE `scheduler` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL COMMENT '调度器名称',
+  `cron` varchar(30) NOT NULL COMMENT 'cron表达式',
+  `description` varchar(200) DEFAULT NULL COMMENT '秒速',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of scheduler
+-- ----------------------------
+INSERT INTO `scheduler` VALUES ('1', '1分钟执行一次', '0 0/1 * * * ?', '0秒执行');
+INSERT INTO `scheduler` VALUES ('2', '10分钟执行一次', '0 0/10 * * * ?', '每10分钟执行');
+
+-- ----------------------------
 -- Table structure for telnet_monitor
 -- ----------------------------
 DROP TABLE IF EXISTS `telnet_monitor`;
@@ -179,3 +200,4 @@ CREATE TABLE `telnet_monitor` (
 -- Records of telnet_monitor
 -- ----------------------------
 INSERT INTO `telnet_monitor` VALUES ('89', '127.0.0.1', '3306', '5000');
+INSERT INTO `telnet_monitor` VALUES ('96', '127.0.0.1', '3306', '5000');

@@ -45,7 +45,7 @@ public class PingMonitorServiceImpl implements PingMonitorService {
 
 			Monitor monitor = new Monitor();
 			monitor.setName(newPingMonitor.getName());
-			monitor.setPollingInterval(newPingMonitor.getPollingInterval());
+			monitor.setSchedulerId(newPingMonitor.getSchedulerId());
 			monitor.setType(MonitorType.PING.getName());
 			monitorDao.insert(monitor);
 

@@ -11,7 +11,7 @@ ID:${monitor.id}
 用户:${monitor.userid!""}
 密码:${monitor.password!""}
 Agent:${monitor.userAgent!""}
-间隔:${monitor.pollingInterval}
+间隔:${monitor.schedulerId}
 请求头:${monitor.httpHeader!""}
 应该包含:${monitor.shouldContain!""}
 不该包含:${monitor.shouldNotContain!""}
