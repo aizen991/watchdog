@@ -26,6 +26,6 @@ public class MonitorTypeDao extends BaseDao{
 	}
 	public List<MonitorType> findAll() {
 		SqlQueryCommand command = new SqlQueryCommand();
-		return this.findOneBySqlCommand(command);
+		return this.findListBySqlCommand(command);
 	}
 }
