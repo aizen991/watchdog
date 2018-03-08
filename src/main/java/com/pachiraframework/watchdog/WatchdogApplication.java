@@ -29,7 +29,7 @@ public class WatchdogApplication extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(jwtInterceptor).addPathPatterns("/api2/**");
+		registry.addInterceptor(jwtInterceptor).addPathPatterns("/api/**");
 	}
 
 	@Override
