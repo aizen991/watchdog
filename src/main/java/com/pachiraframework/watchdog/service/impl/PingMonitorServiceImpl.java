@@ -61,4 +61,10 @@ public class PingMonitorServiceImpl implements PingMonitorService {
 			return ExecuteResult.newErrorResult(e.getMessage());
 		}
 	}
+
+	@Override
+	public ExecuteResult<PingMonitor> get(Long id) {
+		PingMonitor monitor = pingMonitorDao.getById(id);
+		return ExecuteResult.newSuccessResult(monitor);
+	}
 }

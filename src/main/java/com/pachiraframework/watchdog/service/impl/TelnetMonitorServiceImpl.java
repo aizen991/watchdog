@@ -61,4 +61,10 @@ public class TelnetMonitorServiceImpl implements TelnetMonitorService {
 			return ExecuteResult.newErrorResult(e.getMessage());
 		}
 	}
+	@Override
+	public ExecuteResult<TelnetMonitor> get(Long id) {
+		TelnetMonitor monitor = telnetMonitorDao.getById(id);
+		return ExecuteResult.newSuccessResult(monitor);
+	}
+	
 }

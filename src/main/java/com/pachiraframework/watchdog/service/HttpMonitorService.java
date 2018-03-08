@@ -15,4 +15,11 @@ public interface HttpMonitorService {
 	 * @return
 	 */
 	public ExecuteResult<HttpMonitor> create(NewHttpMonitor newHttpMonitor);
+	
+	/**
+	 * 根据id查明细
+	 * @param id
+	 * @return
+	 */
+	public ExecuteResult<HttpMonitor> get(Long id);
 }

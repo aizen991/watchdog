@@ -16,4 +16,11 @@ public interface PingMonitorService {
 	 * @return
 	 */
 	public ExecuteResult<PingMonitor> create(NewPingMonitor pingMonitor);
+	
+	/**
+	 * 根据id查询ping监控器明细
+	 * @param id
+	 * @return
+	 */
+	public ExecuteResult<PingMonitor> get(Long id);
 }

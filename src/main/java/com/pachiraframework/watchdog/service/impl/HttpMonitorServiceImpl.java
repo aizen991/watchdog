@@ -61,4 +61,10 @@ public class HttpMonitorServiceImpl implements HttpMonitorService {
 			return ExecuteResult.newErrorResult(e.getMessage());
 		}
 	}
+	@Override
+	public ExecuteResult<HttpMonitor> get(Long id) {
+		HttpMonitor monitor = httpMonitorDao.getById(id);
+		return ExecuteResult.newSuccessResult(monitor);
+	}
+	
 }

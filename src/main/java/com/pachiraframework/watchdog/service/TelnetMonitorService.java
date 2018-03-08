@@ -15,4 +15,11 @@ public interface TelnetMonitorService {
 	 * @return
 	 */
 	public ExecuteResult<TelnetMonitor> create(NewTelnetMonitor telnetMonitor);
+	
+	/**
+	 * 查询监控器明细
+	 * @param id
+	 * @return
+	 */
+	public ExecuteResult<TelnetMonitor> get(Long id);
 }
