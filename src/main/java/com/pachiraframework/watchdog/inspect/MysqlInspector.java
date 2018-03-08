@@ -11,7 +11,7 @@ import com.pachiraframework.watchdog.entity.AbstractRecord;
 import com.pachiraframework.watchdog.entity.MetricReport;
 import com.pachiraframework.watchdog.entity.MetricReport.StatusEnum;
 import com.pachiraframework.watchdog.entity.Monitor;
-import com.pachiraframework.watchdog.entity.MonitorType;
+import com.pachiraframework.watchdog.entity.Monitor.TypeEnum;
 import com.pachiraframework.watchdog.entity.MysqlRecord;
 
 /**
@@ -39,7 +39,7 @@ public class MysqlInspector extends AbstractInspector {
 
 	private MetricReport createTelnetReport(MysqlRecord record) {
 		MetricReport report = createReport(record);
-		report.setType(MonitorType.MYSQL.getName());
+		report.setType(TypeEnum.MYSQL.name());
 		report.setTimestamp(new Date());
 		return report;
 	}
@@ -115,7 +115,7 @@ public class MysqlInspector extends AbstractInspector {
 	private MetricReport qpsReport(MysqlRecord record) {
 		MetricReport report = createTelnetReport(record);
 		report.setMetric(Metrics.Mysql.QPS);
-		Double qps = record.getQueries() * 1D / record.getUptime();
+		Double qps = record.getQueries()== null ? 0:(record.getQueries() * 1D / record.getUptime());
 		String message = String.format("QPS = Questions(or Queries) / seconds = %s", qps);
 		report.setMessage(message);
 		if (qps >= 3000) {

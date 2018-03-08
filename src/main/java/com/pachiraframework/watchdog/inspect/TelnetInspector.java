@@ -9,9 +9,9 @@ import com.google.common.collect.Lists;
 import com.pachiraframework.watchdog.constant.Metrics;
 import com.pachiraframework.watchdog.entity.AbstractRecord;
 import com.pachiraframework.watchdog.entity.MetricReport;
-import com.pachiraframework.watchdog.entity.Monitor;
 import com.pachiraframework.watchdog.entity.MetricReport.StatusEnum;
-import com.pachiraframework.watchdog.entity.MonitorType;
+import com.pachiraframework.watchdog.entity.Monitor;
+import com.pachiraframework.watchdog.entity.Monitor.TypeEnum;
 import com.pachiraframework.watchdog.entity.TelnetRecord;
 
 /**
@@ -43,7 +43,7 @@ public class TelnetInspector extends AbstractInspector {
 
 	private MetricReport createTelnetReport(TelnetRecord record) {
 		MetricReport report = createReport(record);
-		report.setType(MonitorType.TELNET.getName());
+		report.setType(TypeEnum.TELNET.name());
 		report.setTimestamp(new Date());
 		return report;
 	}

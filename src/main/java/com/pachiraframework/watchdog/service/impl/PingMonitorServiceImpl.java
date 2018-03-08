@@ -15,7 +15,7 @@ import com.pachiraframework.watchdog.dao.MonitorDao;
 import com.pachiraframework.watchdog.dao.PingMonitorDao;
 import com.pachiraframework.watchdog.dto.NewPingMonitor;
 import com.pachiraframework.watchdog.entity.Monitor;
-import com.pachiraframework.watchdog.entity.MonitorType;
+import com.pachiraframework.watchdog.entity.Monitor.TypeEnum;
 import com.pachiraframework.watchdog.entity.PingMonitor;
 import com.pachiraframework.watchdog.service.PingMonitorService;
 
@@ -46,7 +46,7 @@ public class PingMonitorServiceImpl implements PingMonitorService {
 			Monitor monitor = new Monitor();
 			monitor.setName(newPingMonitor.getName());
 			monitor.setSchedulerId(newPingMonitor.getSchedulerId());
-			monitor.setType(MonitorType.PING.getName());
+			monitor.setType(TypeEnum.PING.name());
 			monitorDao.insert(monitor);
 
 			PingMonitor pingMonitor = new PingMonitor();

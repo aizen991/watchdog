@@ -15,7 +15,7 @@ import com.pachiraframework.watchdog.dao.MonitorDao;
 import com.pachiraframework.watchdog.dao.TelnetMonitorDao;
 import com.pachiraframework.watchdog.dto.NewTelnetMonitor;
 import com.pachiraframework.watchdog.entity.Monitor;
-import com.pachiraframework.watchdog.entity.MonitorType;
+import com.pachiraframework.watchdog.entity.Monitor.TypeEnum;
 import com.pachiraframework.watchdog.entity.TelnetMonitor;
 import com.pachiraframework.watchdog.service.TelnetMonitorService;
 
@@ -45,7 +45,7 @@ public class TelnetMonitorServiceImpl implements TelnetMonitorService {
 			Monitor monitor = new Monitor();
 			monitor.setName(newTelnetMonitor.getName());
 			monitor.setSchedulerId(newTelnetMonitor.getSchedulerId());
-			monitor.setType(MonitorType.TELNET.getName());
+			monitor.setType(TypeEnum.TELNET.name());
 			monitorDao.insert(monitor);
 
 			TelnetMonitor telnetMonitor = new TelnetMonitor();

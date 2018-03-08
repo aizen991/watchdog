@@ -9,10 +9,10 @@ import com.google.common.collect.Lists;
 import com.pachiraframework.watchdog.constant.Metrics;
 import com.pachiraframework.watchdog.entity.AbstractRecord;
 import com.pachiraframework.watchdog.entity.MetricReport;
-import com.pachiraframework.watchdog.entity.Monitor;
-import com.pachiraframework.watchdog.entity.MonitorType;
-import com.pachiraframework.watchdog.entity.RedisRecord;
 import com.pachiraframework.watchdog.entity.MetricReport.StatusEnum;
+import com.pachiraframework.watchdog.entity.Monitor;
+import com.pachiraframework.watchdog.entity.Monitor.TypeEnum;
+import com.pachiraframework.watchdog.entity.RedisRecord;
 
 /**
  * @author wangxuzheng
@@ -34,7 +34,7 @@ public class RedisInspector extends AbstractInspector {
 
 	private MetricReport redisReport(RedisRecord record) {
 		MetricReport report = createReport(record);
-		report.setType(MonitorType.REDIS.name());
+		report.setType(TypeEnum.REDIS.name());
 		return report;
 	}
 	private MetricReport avariableReport(RedisRecord record) {

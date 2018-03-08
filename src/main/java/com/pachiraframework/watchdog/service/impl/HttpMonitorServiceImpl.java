@@ -17,7 +17,7 @@ import com.pachiraframework.watchdog.dao.MonitorDao;
 import com.pachiraframework.watchdog.dto.NewHttpMonitor;
 import com.pachiraframework.watchdog.entity.HttpMonitor;
 import com.pachiraframework.watchdog.entity.Monitor;
-import com.pachiraframework.watchdog.entity.MonitorType;
+import com.pachiraframework.watchdog.entity.Monitor.TypeEnum;
 import com.pachiraframework.watchdog.service.HttpMonitorService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +46,7 @@ public class HttpMonitorServiceImpl implements HttpMonitorService {
 			Monitor monitor = new Monitor();
 			monitor.setName(newHttpMonitor.getName());
 			monitor.setSchedulerId(newHttpMonitor.getSchedulerId());
-			monitor.setType(MonitorType.HTTP.getName());
+			monitor.setType(TypeEnum.HTTP.name());
 			monitorDao.insert(monitor);
 
 			HttpMonitor httpMonitor = new HttpMonitor();

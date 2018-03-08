@@ -8,12 +8,13 @@ import lombok.ToString;
 
 /**
  * 监控对象，如jboss服务器
+ * 
  * @author wangxuzheng@aliyun.com
  *
  */
 @Getter
 @Setter
-@ToString(callSuper=true)
+@ToString(callSuper = true)
 public class Monitor extends BaseEntity<Long> {
 	private static final long serialVersionUID = 9159124495806864947L;
 	/**
@@ -25,5 +26,9 @@ public class Monitor extends BaseEntity<Long> {
 	 */
 	private String type;
 	private Long schedulerId;
-//	private List<MonitorGroup> grops;
+	// private List<MonitorGroup> grops;
+
+	public static enum TypeEnum {
+		HTTP, TELNET, PING, REDIS, MEMCACHED, MYSQL;
+	}
 }

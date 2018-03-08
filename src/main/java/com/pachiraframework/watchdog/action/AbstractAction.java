@@ -2,10 +2,10 @@ package com.pachiraframework.watchdog.action;
 
 import java.io.IOException;
 
-import org.assertj.core.util.Throwables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
+import com.google.common.base.Throwables;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pachiraframework.watchdog.event.event.MetricReportEvent;
@@ -33,7 +33,7 @@ public abstract class AbstractAction{
 		try{
 			doExecute(context);
 		}catch(Exception e){
-			log.error(Throwables.getStackTrace(e));
+			log.error(Throwables.getStackTraceAsString(e));
 		}
 	}
 	

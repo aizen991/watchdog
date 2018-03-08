@@ -16,7 +16,7 @@ import com.pachiraframework.watchdog.entity.HttpRecord;
 import com.pachiraframework.watchdog.entity.MetricReport;
 import com.pachiraframework.watchdog.entity.MetricReport.StatusEnum;
 import com.pachiraframework.watchdog.entity.Monitor;
-import com.pachiraframework.watchdog.entity.MonitorType;
+import com.pachiraframework.watchdog.entity.Monitor.TypeEnum;
 
 /**
  * 判断telnet结果.
@@ -100,7 +100,7 @@ public class HttpInspector extends AbstractInspector {
 	}
 	private MetricReport createTelnetReport(HttpRecord record) {
 		MetricReport report = createReport(record);
-		report.setType(MonitorType.HTTP.getName());
+		report.setType(TypeEnum.HTTP.name());
 		report.setTimestamp(new Date());
 		return report;
 	}

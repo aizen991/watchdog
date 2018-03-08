@@ -24,7 +24,7 @@ public class WatchdogApplication extends WebMvcConfigurerAdapter {
 	private JwtInterceptor jwtInterceptor;
 
 	public static void main(String[] args) {
-		SpringApplication.run(WatchdogApplicationTest.class, args);
+		SpringApplication.run(WatchdogApplication.class, args);
 	}
 	
 	@Override

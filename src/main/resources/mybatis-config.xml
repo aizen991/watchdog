@@ -12,6 +12,7 @@
         <typeAlias alias="Scheduler" type="com.pachiraframework.watchdog.entity.Scheduler"/>
 	
 		<typeAlias alias="Monitor" type="com.pachiraframework.watchdog.entity.Monitor"/>
+		<typeAlias alias="MonitorType" type="com.pachiraframework.watchdog.entity.MonitorType"/>
 		<typeAlias alias="PingMonitor" type="com.pachiraframework.watchdog.entity.PingMonitor"/>
 		<typeAlias alias="HttpMonitor" type="com.pachiraframework.watchdog.entity.HttpMonitor"/>
 		<typeAlias alias="TelnetMonitor" type="com.pachiraframework.watchdog.entity.TelnetMonitor"/>
@@ -26,6 +27,7 @@
     	<mapper resource="mappers/SchedulerMapper.xml"/>
     	
         <mapper resource="mappers/MonitorMapper.xml"/>
+        <mapper resource="mappers/MonitorTypeMapper.xml"/>
         <mapper resource="mappers/PingMonitorMapper.xml"/>
         <mapper resource="mappers/TelnetMonitorMapper.xml"/>
         <mapper resource="mappers/HttpMonitorMapper.xml"/>

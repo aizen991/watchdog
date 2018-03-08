@@ -9,9 +9,9 @@ import com.google.common.collect.Lists;
 import com.pachiraframework.watchdog.constant.Metrics;
 import com.pachiraframework.watchdog.entity.AbstractRecord;
 import com.pachiraframework.watchdog.entity.MetricReport;
-import com.pachiraframework.watchdog.entity.Monitor;
 import com.pachiraframework.watchdog.entity.MetricReport.StatusEnum;
-import com.pachiraframework.watchdog.entity.MonitorType;
+import com.pachiraframework.watchdog.entity.Monitor;
+import com.pachiraframework.watchdog.entity.Monitor.TypeEnum;
 import com.pachiraframework.watchdog.entity.PingRecord;
 
 /**
@@ -70,7 +70,7 @@ public class PingInspector extends AbstractInspector {
 
 	private MetricReport createPingReport(PingRecord record) {
 		MetricReport report = createReport(record);
-		report.setType(MonitorType.PING.getName());
+		report.setType(TypeEnum.PING.name());
 		report.setTimestamp(new Date());
 		return report;
 	}

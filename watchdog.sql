@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100113
 File Encoding         : 65001
 
-Date: 2018-03-01 12:20:16
+Date: 2018-03-08 15:32:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -107,6 +107,28 @@ INSERT INTO `monitor` VALUES ('93', 'baidu.com', 'HTTP', '1', '2018-02-12 21:42:
 INSERT INTO `monitor` VALUES ('94', 'memcache localhost', 'MEMCACHED', '1', '2018-02-13 14:56:13', '2018-02-13 14:56:16');
 INSERT INTO `monitor` VALUES ('95', 'redis localhost', 'REDIS', '1', '2018-02-14 15:55:34', '2018-02-14 15:55:37');
 INSERT INTO `monitor` VALUES ('96', 'telnet 127.0.0.1:3306', 'TELNET', '1', '2018-02-28 18:43:29', '2018-02-28 18:43:29');
+
+-- ----------------------------
+-- Table structure for monitor_type
+-- ----------------------------
+DROP TABLE IF EXISTS `monitor_type`;
+CREATE TABLE `monitor_type` (
+  `id` varchar(20) NOT NULL COMMENT '含业务含义的主键',
+  `name` varchar(60) NOT NULL COMMENT '类型名称',
+  `icon` varchar(100) NOT NULL COMMENT '类型对应的图标信息',
+  `description` varchar(200) NOT NULL COMMENT '类型描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of monitor_type
+-- ----------------------------
+INSERT INTO `monitor_type` VALUES ('HTTP', 'HTTP', 'http.png', '检查指定的http url连接地址是否可访问，是否返回期望的内容/状态');
+INSERT INTO `monitor_type` VALUES ('MEMCACHED', 'MEMCACHED', 'memcached.png', '检查memcached是否正常，缓存利用率是否正常');
+INSERT INTO `monitor_type` VALUES ('MYSQL', 'MySQL', 'mysql.png', '通过jdbc方式连接到给定mysql服务器，检查mysql的各项指标是否正常');
+INSERT INTO `monitor_type` VALUES ('PING', 'PING', 'ping.png', '使用ping命令检查下与指定主机之间的联通性');
+INSERT INTO `monitor_type` VALUES ('REDIS', 'REDIS', 'redis.png', '执行info命令检查redis的各项指标');
+INSERT INTO `monitor_type` VALUES ('TELNET', 'TELNET', 'telnet.png', '使用telnet命令检查指定主机端口是否正常');
 
 -- ----------------------------
 -- Table structure for mysql_monitor

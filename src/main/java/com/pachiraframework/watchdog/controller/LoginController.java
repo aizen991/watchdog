@@ -52,8 +52,8 @@ public class LoginController {
 	}
 	
 	private String generateToken(Long userId) {
-		//5分钟token过期
-		Date exp = new Date(System.currentTimeMillis()+50*60*1000);
+		//7天token过期
+		Date exp = new Date(System.currentTimeMillis()+7*24*60*60*1000);
 	    String jwt = Jwts.builder()
 	            .signWith(SignatureAlgorithm.HS256,this.jwtKey)
 	            .setExpiration(exp)

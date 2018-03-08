@@ -12,7 +12,7 @@ import com.pachiraframework.watchdog.entity.MemcachedRecord;
 import com.pachiraframework.watchdog.entity.MetricReport;
 import com.pachiraframework.watchdog.entity.MetricReport.StatusEnum;
 import com.pachiraframework.watchdog.entity.Monitor;
-import com.pachiraframework.watchdog.entity.MonitorType;
+import com.pachiraframework.watchdog.entity.Monitor.TypeEnum;
 
 /**
  * @author wangxuzheng
@@ -48,7 +48,7 @@ public class MemcachedInspector extends AbstractInspector {
 
 	private MetricReport createMemcachedReport(MemcachedRecord record) {
 		MetricReport report = createReport(record);
-		report.setType(MonitorType.MEMCACHED.getName());
+		report.setType(TypeEnum.MEMCACHED.name());
 		return report;
 	}
 

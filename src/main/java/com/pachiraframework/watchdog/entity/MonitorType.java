@@ -1,44 +1,27 @@
 package com.pachiraframework.watchdog.entity;
 
-import lombok.AllArgsConstructor;
+import com.pachiraframework.entity.BaseEntity;
+
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
- * 监控类型
- * 
  * @author wangxuzheng
  *
  */
 @Getter
-@AllArgsConstructor
-public enum MonitorType {
-	/**
-	 * PING 主机
-	 */
-	PING("PING", "ping.png"),
-	/**
-	 * 
-	 */
-	TELNET("TELNET", "telnet.png"),
-	/**
-	 * HTTP URL监控
-	 */
-	HTTP("HTTP", "url.png"),
-	/**
-	 * redis服务器
-	 */
-	REDIS("REDIS","redis.png"),
-	/**
-	* memcached
-	*/
-	MEMCACHED("MEMCACHED", "memcached.png"),
-	/**
-	 * MySQL
-	 */
-	MYSQL("MYSQL","mysql.png");
+@Setter
+@ToString(callSuper=true)
+public class MonitorType extends BaseEntity<String> {
+	private static final long serialVersionUID = 2997293122550235468L;
 	private String name;
 	/**
 	 * 图标地址
 	 */
 	private String icon;
+	/**
+	 * 简介
+	 */
+	private String description;
 }
