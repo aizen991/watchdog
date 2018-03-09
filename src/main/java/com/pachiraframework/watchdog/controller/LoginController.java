@@ -1,6 +1,7 @@
 package com.pachiraframework.watchdog.controller;
 
 import java.util.Date;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class LoginController {
 			UserEntry user = new UserEntry();
 			user.setId(1L);
 			String token = generateToken(user.getId());
-			user.setToken(token);
+			user.setAccess_token(token);
 			ExecuteResult<UserEntry> result = ExecuteResult.newSuccessResult(user);
 			return ResponseEntity.ok(result);
 		}
@@ -42,7 +43,9 @@ public class LoginController {
 	@Data
 	public static class UserEntry{
 		private Long id;
-		private String token;
+		private String access_token;
+		private String token_type = "bearer";
+		private String refresh_token = UUID.randomUUID().toString();
 	}
 	
 	@Data
