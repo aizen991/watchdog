@@ -6,8 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.assertj.core.util.Strings;
-
+import com.google.common.base.Strings;
 import com.google.common.base.Throwables;
 import com.pachiraframework.domain.Page;
 import com.pachiraframework.domain.PageRequest;
