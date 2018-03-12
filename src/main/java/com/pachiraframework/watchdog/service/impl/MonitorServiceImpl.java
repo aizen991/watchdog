@@ -28,7 +28,7 @@ public class MonitorServiceImpl implements MonitorService {
 	private MonitorTypeDao monitorTypeDao;
 	@Override
 	public Page<Monitor> search(SearchMonitorCriteria criteria) {
-		criteria.getOrders().add(new Order("started_at", Direction.DESC));
+		criteria.getOrders().add(new Order("m.updated_at", Direction.DESC));
 		WrappedPageRequest pageRequest = new WrappedPageRequest(criteria);
 		return monitorDao.findByPage(pageRequest);
 	}
